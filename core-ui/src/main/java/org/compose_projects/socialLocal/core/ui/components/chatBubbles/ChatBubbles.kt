@@ -36,7 +36,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +52,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -58,8 +61,11 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import org.compose_projects.socialLocal.core.ui.R
 import org.compose_projects.socialLocal.core.ui.colorPreferences.SLColor
+import org.compose_projects.socialLocal.core.ui.components.videoPlayer.VideoScreen
+import org.compose_projects.socialLocal.core.ui.components.videoPlayer.viewModels.ChatGlobal
 
 @Composable
 fun Bubbles(
@@ -148,7 +154,7 @@ private fun CurrentTitle(
             contentDescription = null,
             modifier = Modifier
                 .clip(RoundedCornerShape(50.dp))
-                .size(20.dp)
+                .size(25.dp)
                 .clickable { onClickProfile() },
             contentScale = ContentScale.FillBounds
         )
@@ -156,7 +162,7 @@ private fun CurrentTitle(
 
         Text(
             nameProfile,
-            color = currentColor.TextsColor2,
+            color = currentColor.ColorTitles,
             fontSize = 11.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
@@ -167,7 +173,7 @@ private fun CurrentTitle(
 
         Text(
             "martes - $hour",
-            color = currentColor.TextsColor2,
+            color = currentColor.ColorTitles,
             fontSize = 9.5.sp,
             fontWeight = FontWeight.Light
         )
@@ -181,14 +187,18 @@ fun CurrentContent(
     message: String? = null,
     image: String? = null,
     video: String? = null,
+    chatGlobal: ChatGlobal = viewModel()
 ) {
 
+    val context = LocalContext.current
     val currentColor by SLColor
+    val stateVisibilityVideo = chatGlobal.stateVisibility.collectAsState().value
+    val mediaItems = chatGlobal.mediaItem.collectAsState().value
 
     if (message != null) {
         Text(
             message,
-            color = currentColor.TextsColor2,
+            color = currentColor.ColorParagraphs,
             modifier = Modifier.padding(5.dp),
             fontSize = 12.sp,
             fontWeight = FontWeight.Bold,
@@ -228,8 +238,36 @@ fun CurrentContent(
         }
     } else if (video != null) {
         //visualice video
+        Box(
+            modifier = Modifier
+                .size(300.dp)
+                .padding(8.dp)
+                .clip(
+                    RoundedCornerShape(10.dp)
+                )
+                .background(
+                    color = currentColor.BackgroundColor.copy(alpha = 0.8F)
+                )
+        ) {
+
+            Icon(
+                painter = painterResource(id = R.drawable.play_ic),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable { chatGlobal.changeStateValue(true) }
+                    .align(Alignment.Center)
+                    .size(80.dp),
+                tint = currentColor.IconsColor
+            )
+
+        }
     }
 
+    //show Screen Video Player
+    VideoScreen(state = stateVisibilityVideo,
+        //mediaItems = mediaItems,
+        onDismissRequest = { chatGlobal.changeStateValue(false) }
+    )
 
 }
 
@@ -242,7 +280,6 @@ private fun ContentBubbles(
 ) {
 
     val currentColor by SLColor
-
     var size by remember { mutableStateOf(IntSize.Zero) }
 
     LaunchedEffect(size) {

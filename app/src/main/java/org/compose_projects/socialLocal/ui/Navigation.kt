@@ -43,7 +43,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -122,7 +125,15 @@ private fun TopAppBarNavigation(title: String) {
     val currentColor by SLColor
 
     TopAppBar(
-        title = { Text(text = title) },
+        title = {
+            Text(
+                text = title,
+                style = TextStyle(
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 18.sp
+                )
+            )
+        },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = currentColor.BackgroundTopAppBarColor,
             titleContentColor = currentColor.TextTopAppBarColor
@@ -138,11 +149,10 @@ private fun BottomAppNavigation(navController: NavHostController, view: String) 
     BottomAppBar(
         modifier = Modifier
             .height(120.dp)
-            .systemBarsPadding()
-        ,
+            .systemBarsPadding(),
         containerColor = currentColor.BackgroundBottomAppBarColor,
 
-    ) {
+        ) {
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround

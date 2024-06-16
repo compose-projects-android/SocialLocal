@@ -68,7 +68,7 @@ private fun CurrentTitle(nameProfile: String) {
         Text(
             text = nameProfile,
             style = TextStyle(
-                color = currentColor.TextsColor2,
+                color = currentColor.ColorTitles,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.ExtraBold
             )
@@ -139,7 +139,7 @@ private fun CurrentDescriptionProfile(descriptionProfile: String) {
         Text(
             text = descriptionProfile,
             style = TextStyle(
-                color = currentColor.TextsColor2.copy(alpha = 0.8F),
+                color = currentColor.ColorParagraphs,
                 fontWeight = FontWeight.Bold,
                 fontSize = 10.sp,
                 textAlign = TextAlign.Center

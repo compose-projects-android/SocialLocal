@@ -4,10 +4,9 @@ object messages {
     val message1: messages_example
         get() = object : messages_example {
             override val index: Int = 1
-            override val message: String =
-                "Hola a todos, soy Less, bienvenidos a esta pequeña organización 'Compose Projects'."
+            override val message: String? = null
             override val image: String? = null
-            override val video: String? = null
+            override val video: String? = videos_chat.video1
             override val hour: String = "20:53 PM"
             override val imageProfile: String = images_profiles.uri3
             override val nameProfile: String = names_profiles.name1
@@ -183,4 +182,11 @@ object images_chat {
     const val uri1 = "/media/socialLocal/chat_global/image1.png"
     const val uri2 = "/media/socialLocal/chat_global/image2.png"
     const val uri3 = "/media/socialLocal/chat_global/image3.png"
+}
+
+object videos_chat {
+    const val video1 = "/sl/media/mp3/video1.mp4"
+    const val video2 = "/sl/media/mp3/video2.mp4"
+    const val video3 = "/sl/media/mp3/video3.mp4"
+    const val video4 = "/sl/media/mp3/video4.mp4"
 }

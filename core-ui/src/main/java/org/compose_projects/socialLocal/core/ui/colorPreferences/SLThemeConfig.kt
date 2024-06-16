@@ -33,6 +33,6 @@ interface SLThemeConfig {
     val BackgroundTriangleChatBubblesRight: Color
     val IconsColor: Color
     val BackgroundButtonsColor: Color
-    val TextsColor1: Color
-    val TextsColor2: Color
+    val ColorTitles: Color
+    val ColorParagraphs: Color
 }

@@ -46,6 +46,7 @@ class HomeViewModel @Inject constructor(
             usersRepository.add(name)
         }
     }
+
 }
 
 sealed interface HomeUiState {

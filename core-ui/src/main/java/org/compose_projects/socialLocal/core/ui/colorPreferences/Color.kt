@@ -33,8 +33,9 @@ internal val SL_theme_default_BackgroundTriangleChatBubblesLeft = Color(backgrou
 internal val SL_theme_default_BackgroundTriangleChatBubblesRight = Color(backgroundTriangleDefaultRight)
 internal val SL_theme_default_IconsColor = Color(0xFF82D3E1)
 internal val SL_theme_default_BackgroundButtonsColor = Color(0xFF004F58)
-internal val SL_theme_default_TextsColor1 = Color(0xFF001F24)
-internal val SL_theme_default_TextsColor2 = Color(0xD9C1D2D5)
+internal val SL_theme_default_ColorTitles = Color(0xD9D5C1C1)
+internal val SL_theme_default_ColorParagraphs = Color(0xD3EEFDFF)
+
 
 //black
 internal val SL_theme_black_BackgroundColor = Color(backgroundAppColorBlack)
@@ -51,6 +52,6 @@ internal val SL_theme_black_BackgroundTriangleChatBubblesLeft = Color(background
 internal val SL_theme_black_BackgroundTriangleChatBubblesRight = Color(backgroundTriangleBlackRight)
 internal val SL_theme_black_IconsColor = Color(0xFF82D3E1)
 internal val SL_theme_black_BackgroundButtonsColor = Color(0xFF004F58)
-internal val SL_theme_black_TextsColor1 = Color(0xFF001F24)
-internal val SL_theme_black_TextsColor2 = Color(0xD9C1D2D5)
+internal val SL_theme_black_ColorTitles = Color(0xD9C1D2D5)
+internal val SL_theme_black_ColorParagraphs = Color(0xD3EEFDFF)
 

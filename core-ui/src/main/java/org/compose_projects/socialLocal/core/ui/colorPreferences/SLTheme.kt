@@ -49,10 +49,10 @@ internal object SLTheme {
                 get() = SL_theme_default_IconsColor
             override val BackgroundButtonsColor: Color
                 get() = SL_theme_default_BackgroundButtonsColor
-            override val TextsColor1: Color
-                get() = SL_theme_default_TextsColor1
-            override val TextsColor2: Color
-                get() = SL_theme_default_TextsColor2
+            override val ColorParagraphs: Color
+                get() = SL_theme_default_ColorParagraphs
+            override val ColorTitles: Color
+                get() = SL_theme_default_ColorTitles
         }
 
     val blackStyle: SLThemeConfig
@@ -85,9 +85,9 @@ internal object SLTheme {
                 get() = SL_theme_black_IconsColor
             override val BackgroundButtonsColor: Color
                 get() = SL_theme_black_BackgroundButtonsColor
-            override val TextsColor1: Color
-                get() = SL_theme_black_TextsColor1
-            override val TextsColor2: Color
-                get() = SL_theme_black_TextsColor2
+            override val ColorParagraphs: Color
+                get() = SL_theme_black_ColorParagraphs
+            override val ColorTitles: Color
+                get() = SL_theme_black_ColorTitles
         }
 }
