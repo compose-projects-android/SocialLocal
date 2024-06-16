@@ -20,22 +20,41 @@ import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.launch
+import org.compose_projects.socialLocal.feature.multimedia.MultimediaManager
 
 
 private const val TAG = "prueba1"
+
 @Composable
-fun FileAction(state: Boolean, onDismissRequest: () -> Unit ) {
+fun FileAction(state: Boolean, onDismissRequest: () -> Unit) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val uri = remember { mutableStateOf<Uri?>(null) }
+
+    /*
+        var directories by remember { mutableStateOf("") }
+    */
+
+    LaunchedEffect(Unit) {
+        this.launch {
+            MultimediaManager(context).apply {
+                this.createDirectories()
+                //directories = this.treeOfDirectories()
+            }
+
+            //Log.d(TAG, directories)
+        }
+    }
+
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -44,7 +63,7 @@ fun FileAction(state: Boolean, onDismissRequest: () -> Unit ) {
         if (result != null) {
             uri.value = result
             onDismissRequest()
-        }else {
+        } else {
             onDismissRequest()
         }
     }
@@ -60,7 +79,7 @@ fun FileAction(state: Boolean, onDismissRequest: () -> Unit ) {
 
     LaunchedEffect(uri.value) {
         this.launch {
-            if (uri.value != null){
+            if (uri.value != null) {
                 Log.d(TAG, "La Uri selecciona es: ${uri.value}")
 
             }
