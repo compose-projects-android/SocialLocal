@@ -24,6 +24,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.compose_projects.socialLocal.core.database.AppDatabase
+import org.compose_projects.socialLocal.core.database.MultimediaDao
 import org.compose_projects.socialLocal.core.database.UsersDao
 import javax.inject.Singleton
 
@@ -35,6 +36,10 @@ class DatabaseModule {
         return appDatabase.usersDao()
     }
 
+    @Provides
+    fun provideMultimediaDao(appDatabase: AppDatabase): MultimediaDao {
+        return appDatabase.multimediaDao()
+    }
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {

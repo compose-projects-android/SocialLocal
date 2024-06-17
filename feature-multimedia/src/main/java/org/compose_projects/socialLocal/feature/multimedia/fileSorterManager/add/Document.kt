@@ -16,6 +16,11 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add
 
-fun Document(uri: String, typeChat: String) {
+import android.net.Uri
+import android.util.Log
 
+
+private const val TAG = "prueba4"
+internal fun Document(uri: Uri, typeChat: String, nameFile: String) {
+    Log.d(TAG, "uri fun Document -> $uri /n name -> $nameFile")
 }

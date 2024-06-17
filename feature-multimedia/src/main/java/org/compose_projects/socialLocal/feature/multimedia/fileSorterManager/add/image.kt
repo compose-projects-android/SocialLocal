@@ -16,6 +16,69 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add
 
-fun Image(uri: String, typeChat: String) {
+import android.content.Context
+import android.net.Uri
+import android.util.Log
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
+private const val TAG = "prueba4"
+internal fun Image(
+    context: Context,
+    uri: Uri,
+    typeChat: String,
+    parentDirCG: File,
+    parentDirCI: File,
+    nameFile: String
+) {
+
+    when (typeChat) {
+        chatglobal -> SaveImage(
+            context = context,
+            parentDir = parentDirCG,
+            uri = uri,
+            nameFile = nameFile
+        )
+
+        chatinbox -> SaveImage(
+            context = context,
+            parentDir = parentDirCI,
+            uri = uri,
+            nameFile = nameFile
+        )
+    }
+}
+
+private fun SaveImage(
+    context: Context,
+    parentDir: File,
+    uri: Uri, nameFile: String
+) {
+    val newFile = File(parentDir, nameFile)
+    if (!newFile.exists()) {
+        try {
+            newFile.createNewFile()
+            val inputStream: InputStream? = context.contentResolver.openInputStream(uri)
+            if (inputStream != null) {
+                val outputStream = FileOutputStream(newFile)
+                val buffer = ByteArray(1024)
+                var bytesRead: Int
+                while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                    outputStream.write(buffer, 0, bytesRead)
+                }
+                inputStream.close()
+                outputStream.close()
+                Log.d(TAG, "Se creó el archivo $nameFile correctamente")
+            } else {
+                Log.e(TAG, "No se pudo abrir el InputStream de la URI")
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Log.e(TAG, "Error: $e")
+        }
+    }
 }

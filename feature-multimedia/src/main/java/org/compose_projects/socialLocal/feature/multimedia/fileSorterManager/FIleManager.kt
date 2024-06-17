@@ -16,18 +16,55 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager
 
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.appname
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.images
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Audio
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Document
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Image
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Video
+import java.io.File
 
-class FileManager(private val uri: String, private val typeChat: String) {
+internal class FileManager(
+    private val context: Context,
+    private val uri: Uri,
+    private val typeChat: String,
+    private val nameFile: String
+) {
 
+    private val providerPaths: ProviderPaths = ProviderPaths()
 
-    fun addImage() = Image(uri, typeChat)
-    fun addVideo() = Video(uri, typeChat)
-    fun addDocument() = Document(uri, typeChat)
-    fun addAudio() = Audio(uri, typeChat)
+    fun addImage() = Image(
+        context = context,
+        uri = uri,
+        typeChat = typeChat,
+        parentDirCG = providerPaths.PathImagesCG(),
+        parentDirCI = providerPaths.PathImagesCI(),
+        nameFile = nameFile
+    )
 
+    fun addVideo() = Video(
+        context = context,
+        uri = uri,
+        typeChat = typeChat,
+        parentDirCG = providerPaths.PathVideosCG(),
+        parentDirCI = providerPaths.PathVideosCI(),
+        nameFile = nameFile
+    )
 
+    fun addDocument() = Document(
+        uri = uri,
+        typeChat = typeChat,
+        nameFile = nameFile
+    )
+
+    fun addAudio() = Audio(
+        uri = uri,
+        typeChat = typeChat,
+        nameFile = nameFile
+    )
 }

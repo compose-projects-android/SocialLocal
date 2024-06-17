@@ -27,9 +27,10 @@ object CONSTANTS {
     internal const val documents = "Documentos"
     internal const val audios = "Audios"
 
-    //file extensions
+    //files
 
     // Images
+    internal const val image = "image"
     internal const val JPG = ".jpg"
     internal const val JPEG = ".jpeg"
     internal const val PNG = ".png"
@@ -39,6 +40,7 @@ object CONSTANTS {
     internal const val TIFF = ".tiff"
 
     // Video
+    internal const val video = "video"
     internal const val MP4 = ".mp4"
     internal const val AVI = ".avi"
     internal const val MKV = ".mkv"
@@ -46,6 +48,7 @@ object CONSTANTS {
     internal const val WMV = ".wmv"
 
     // Documents
+    internal const val document = "document"
     internal const val DOC = ".doc"
     internal const val DOCX = ".docx"
     internal const val PDF = ".pdf"
@@ -54,6 +57,7 @@ object CONSTANTS {
     internal const val ODT = ".odt"
 
     // Audio
+    internal const val audio = "audio"
     internal const val MP3 = ".mp3"
     internal const val WAV = ".wav"
     internal const val AAC = ".aac"
@@ -100,5 +104,8 @@ object CONSTANTS {
     internal const val DB = ".db"
     internal const val MDB = ".mdb"
     internal const val SQLITE = ".sqlite"
+
+    //?
+    internal const val UNKNOWN= "unknown"
 
 }

@@ -16,6 +16,67 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add
 
-fun Video(uri: String, typeChat: String) {
+import android.content.Context
+import android.net.Uri
+import android.os.Environment
+import android.util.Log
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS
+import java.io.File
+import java.io.FileOutputStream
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
 
+private const val TAG = "prueba4"
+internal fun Video(
+    context: Context, uri: Uri,
+    typeChat: String,
+    parentDirCG: File,
+    parentDirCI: File, nameFile: String
+) {
+    when (typeChat) {
+        chatglobal -> SaveVideo(
+            context = context,
+            parentDir = parentDirCG,
+            uri = uri,
+            nameFile = nameFile
+        )
+
+        chatinbox -> SaveVideo(
+            context = context,
+            parentDir = parentDirCI,
+            uri = uri,
+            nameFile = nameFile
+        )
+    }
+}
+
+private fun SaveVideo(
+    context: Context,
+    parentDir: File,
+    uri: Uri, nameFile: String
+) {
+    val contentResolver = context.contentResolver
+    try {
+        val inputStream = contentResolver.openInputStream(uri) ?: return
+
+        val file = File(parentDir, nameFile)
+
+        val outputStream = FileOutputStream(file)
+
+        val buffer = ByteArray(1024)
+        var read: Int
+        while (inputStream.read(buffer).also { read = it } != -1) {
+            outputStream.write(buffer, 0, read)
+        }
+
+        inputStream.close()
+        outputStream.flush()
+        outputStream.close()
+
+        // Optional: Update gallery to show the saved video
+        //context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(file.absolutePath)))
+
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

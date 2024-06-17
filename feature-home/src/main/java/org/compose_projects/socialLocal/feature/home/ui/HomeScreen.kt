@@ -50,6 +50,11 @@ import org.compose_projects.socialLocal.core.ui.components.chatBubbles.messages_
 import org.compose_projects.socialLocal.core.ui.components.prev_profile.ContentProfile
 import org.compose_projects.socialLocal.core.ui.components.prev_profile.PreviewProfile
 
+
+
+private const val chatglobal = "Chat Global"
+private const val chatinbox = "Chats Privados"
+
 @Composable
 fun HomeScreen(bottomChatViewModel: BottomChatViewModel = viewModel()) {
     val messages: List<messages_example> = listOf(
@@ -179,7 +184,7 @@ fun HomeScreen(bottomChatViewModel: BottomChatViewModel = viewModel()) {
             keyboardController?.show()
         }
 
-        FileAction(state = fileState) {
+        FileAction(state = fileState, typeChat = chatglobal) {
             fileState = false
         }
 

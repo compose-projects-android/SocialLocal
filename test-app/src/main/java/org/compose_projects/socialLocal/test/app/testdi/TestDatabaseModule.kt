@@ -20,7 +20,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import org.compose_projects.socialLocal.core.data.UsersRepository
+import org.compose_projects.socialLocal.core.data.repository.UsersRepository
 import org.compose_projects.socialLocal.core.data.di.DataModule
 import org.compose_projects.socialLocal.core.data.di.FakeUsersRepository
 

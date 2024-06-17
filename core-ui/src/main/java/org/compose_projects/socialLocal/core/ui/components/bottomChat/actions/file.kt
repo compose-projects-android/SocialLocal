@@ -22,11 +22,9 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.launch
 import org.compose_projects.socialLocal.feature.multimedia.MultimediaManager
@@ -35,7 +33,7 @@ import org.compose_projects.socialLocal.feature.multimedia.MultimediaManager
 private const val TAG = "prueba1"
 
 @Composable
-fun FileAction(state: Boolean, onDismissRequest: () -> Unit) {
+fun FileAction(state: Boolean, typeChat: String, onDismissRequest: () -> Unit) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val uri = remember { mutableStateOf<Uri?>(null) }
@@ -44,13 +42,14 @@ fun FileAction(state: Boolean, onDismissRequest: () -> Unit) {
         var directories by remember { mutableStateOf("") }
     */
 
+    val multimediaManager: MultimediaManager = MultimediaManager(context)
+
     LaunchedEffect(Unit) {
         this.launch {
-            MultimediaManager(context).apply {
+            multimediaManager.apply {
                 this.createDirectories()
                 //directories = this.treeOfDirectories()
             }
-
             //Log.d(TAG, directories)
         }
     }
@@ -62,7 +61,11 @@ fun FileAction(state: Boolean, onDismissRequest: () -> Unit) {
         //If the user has not selected any file, the file URI remains the same.
         if (result != null) {
             uri.value = result
+            multimediaManager.apply {
+                this.saveFile(uri = result, typeChat = typeChat)
+            }
             onDismissRequest()
+
         } else {
             onDismissRequest()
         }

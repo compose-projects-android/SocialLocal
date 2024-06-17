@@ -18,6 +18,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
 }
 android {
     namespace = "org.compose_projects.socialLocal.feature.multimedia"
@@ -51,6 +52,16 @@ android {
 }
 
 dependencies {
+
+    //Core Project dependencies
+    implementation(project(":core-data"))
+    androidTestImplementation(project(":core-testing"))
+
+    // Hilt Dependency Injection
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)

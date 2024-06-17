@@ -1,3 +1,5 @@
+package org.compose_projects.socialLocal.core.database
+
 /*
  * Copyright (C) 2022 The Android Open Source Project
  *
@@ -14,28 +16,26 @@
  * limitations under the License.
  */
 
-package org.compose_projects.socialLocal.core.data
-
+import androidx.room.Dao
+import androidx.room.Entity
+import androidx.room.Insert
+import androidx.room.PrimaryKey
+import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import org.compose_projects.socialLocal.core.database.Users
-import org.compose_projects.socialLocal.core.database.UsersDao
-import javax.inject.Inject
 
-interface UsersRepository {
-    val userss: Flow<List<String>>
-
-    suspend fun add(name: String)
+@Entity
+data class Multimedia(
+    val file: String
+) {
+    @PrimaryKey(autoGenerate = true)
+    var uid: Int = 0
 }
 
-class DefaultUsersRepository @Inject constructor(
-    private val usersDao: UsersDao
-) : UsersRepository {
+@Dao
+interface MultimediaDao {
+    @Query("SELECT * FROM Multimedia")
+    fun getMultimedia(): Flow<List<Multimedia>>
 
-    override val userss: Flow<List<String>> =
-        usersDao.getUserss().map { items -> items.map { it.name } }
-
-    override suspend fun add(name: String) {
-        usersDao.insertUsers(Users(name = name))
-    }
+    @Insert
+    suspend fun insertMedia(item: Multimedia)
 }

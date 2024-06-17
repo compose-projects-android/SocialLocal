@@ -25,7 +25,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.compose_projects.socialLocal.core.data.UsersRepository
+import org.compose_projects.socialLocal.core.data.repository.UsersRepository
 import javax.inject.Inject
 import org.compose_projects.socialLocal.feature.home.ui.HomeUiState.Loading
 import org.compose_projects.socialLocal.feature.home.ui.HomeUiState.Error
