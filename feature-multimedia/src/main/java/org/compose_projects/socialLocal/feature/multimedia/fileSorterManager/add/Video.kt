@@ -25,27 +25,25 @@ import java.io.File
 import java.io.FileOutputStream
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
+import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.FileProvider
 
 private const val TAG = "prueba4"
 internal fun Video(
-    context: Context, uri: Uri,
-    typeChat: String,
-    parentDirCG: File,
-    parentDirCI: File, nameFile: String
+    fileProvider: FileProvider
 ) {
-    when (typeChat) {
+    when (fileProvider.typeChat) {
         chatglobal -> SaveVideo(
-            context = context,
-            parentDir = parentDirCG,
-            uri = uri,
-            nameFile = nameFile
+            context = fileProvider.context,
+            parentDir = fileProvider.parentDirCG,
+            uri = fileProvider.uri,
+            nameFile = fileProvider.nameFile
         )
 
         chatinbox -> SaveVideo(
-            context = context,
-            parentDir = parentDirCI,
-            uri = uri,
-            nameFile = nameFile
+            context = fileProvider.context,
+            parentDir = fileProvider.parentDirCG,
+            uri = fileProvider.uri,
+            nameFile = fileProvider.nameFile
         )
     }
 }
@@ -53,7 +51,8 @@ internal fun Video(
 private fun SaveVideo(
     context: Context,
     parentDir: File,
-    uri: Uri, nameFile: String
+    uri: Uri,
+    nameFile: String
 ) {
     val contentResolver = context.contentResolver
     try {
@@ -72,9 +71,6 @@ private fun SaveVideo(
         inputStream.close()
         outputStream.flush()
         outputStream.close()
-
-        // Optional: Update gallery to show the saved video
-        //context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(file.absolutePath)))
 
     } catch (e: Exception) {
         e.printStackTrace()

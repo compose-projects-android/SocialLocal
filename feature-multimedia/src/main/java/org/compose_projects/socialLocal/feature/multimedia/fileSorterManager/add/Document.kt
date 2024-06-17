@@ -16,11 +16,40 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add
 
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
+import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.FileProvider
+import java.io.File
 
 
 private const val TAG = "prueba4"
-internal fun Document(uri: Uri, typeChat: String, nameFile: String) {
-    Log.d(TAG, "uri fun Document -> $uri /n name -> $nameFile")
+internal fun Document(fileProvider: FileProvider) {
+
+    when (fileProvider.typeChat) {
+        chatglobal -> SaveDocument(
+            context = fileProvider.context,
+            parentDir = fileProvider.parentDirCG,
+            uri = fileProvider.uri,
+            nameFile = fileProvider.nameFile
+        )
+
+        chatinbox -> SaveDocument(
+            context = fileProvider.context,
+            parentDir = fileProvider.parentDirCI,
+            uri = fileProvider.uri,
+            nameFile = fileProvider.nameFile
+        )
+    }
+}
+
+private fun SaveDocument(
+    context: Context,
+    parentDir: File,
+    uri: Uri, nameFile: String
+) {
+    //todo feature
 }

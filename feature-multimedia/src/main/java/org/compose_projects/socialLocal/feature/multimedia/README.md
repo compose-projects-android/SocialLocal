@@ -1,10 +1,10 @@
 *** Feature - Multimedia
 
-    1. Introducción [x]
-    1.1 Planteamiento de ideas   [x]
-    1.2. Estrategias [ ]
-    1.3. Organización [ ]
-    2. Desarrollo [ ]
+    1. Introducción [x] 
+    1.1 Planteamiento de ideas [x] 
+    1.2. Estrategias [x]
+    1.3. Organización [x]
+    2. Desarrollo [x]
     2.1 ...
 
 *** 1. Introducción:

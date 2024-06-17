@@ -16,13 +16,84 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add
 
+import android.content.ContentResolver
+import android.content.Context
 import android.net.Uri
 import android.util.Log
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 
 private const val TAG = "prueba4"
 
-internal fun Audio(uri: Uri, typeChat: String, nameFile: String) {
-    Log.d(TAG, "uri fun Audio -> $uri /n name -> $nameFile")
+internal fun Audio(
+    context: Context,
+    uri: Uri,
+    typeChat: String,
+    parentDirCG: File,
+    parentDirCI: File,
+    nameFile: String
+) {
+
+    when (typeChat) {
+        chatglobal -> SaveAudio(
+            context = context,
+            parentDir = parentDirCG,
+            uri = uri,
+            nameFile = nameFile
+        )
+
+        chatinbox -> SaveAudio(
+            context = context,
+            parentDir = parentDirCI,
+            uri = uri,
+            nameFile = nameFile
+        )
+    }
+
+}
+
+
+private fun SaveAudio(
+    context: Context,
+    uri: Uri,
+    nameFile: String,
+    parentDir: File
+): Boolean {
+    return try {
+        // Asegúrate de que el directorio padre exista
+        if (!parentDir.exists()) {
+            parentDir.mkdirs()
+        }
+
+        val file = File(parentDir, nameFile)
+        val contentResolver: ContentResolver = context.contentResolver
+        val inputStream: InputStream? = contentResolver.openInputStream(uri)
+        val outputStream = FileOutputStream(file)
+
+        if (inputStream != null) {
+            val buffer = ByteArray(1024)
+            var length: Int
+
+            while (inputStream.read(buffer).also { length = it } > 0) {
+                outputStream.write(buffer, 0, length)
+            }
+
+            // Cerrar flujos
+            outputStream.flush()
+            outputStream.close()
+            inputStream.close()
+            true
+        } else {
+            false
+        }
+    } catch (e: Exception) {
+        e.printStackTrace()
+        false
+    }
 
 }

@@ -29,6 +29,17 @@ import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Video
 import java.io.File
 
+
+internal data class FileProvider(
+    val context: Context,
+    val uri: Uri,
+    val typeChat: String,
+    val nameFile: String,
+    val parentDirCG: File,
+    val parentDirCI: File
+
+)
+
 internal class FileManager(
     private val context: Context,
     private val uri: Uri,
@@ -39,32 +50,44 @@ internal class FileManager(
     private val providerPaths: ProviderPaths = ProviderPaths()
 
     fun addImage() = Image(
-        context = context,
-        uri = uri,
-        typeChat = typeChat,
-        parentDirCG = providerPaths.PathImagesCG(),
-        parentDirCI = providerPaths.PathImagesCI(),
-        nameFile = nameFile
+        FileProvider(
+            context = context,
+            uri = uri,
+            typeChat = typeChat,
+            parentDirCG = providerPaths.PathImagesCG(),
+            parentDirCI = providerPaths.PathImagesCI(),
+            nameFile = nameFile
+        )
     )
 
     fun addVideo() = Video(
-        context = context,
-        uri = uri,
-        typeChat = typeChat,
-        parentDirCG = providerPaths.PathVideosCG(),
-        parentDirCI = providerPaths.PathVideosCI(),
-        nameFile = nameFile
+        FileProvider(
+            context = context,
+            uri = uri,
+            typeChat = typeChat,
+            parentDirCG = providerPaths.PathImagesCG(),
+            parentDirCI = providerPaths.PathImagesCI(),
+            nameFile = nameFile
+        )
     )
 
     fun addDocument() = Document(
-        uri = uri,
-        typeChat = typeChat,
-        nameFile = nameFile
+        FileProvider(
+            context = context,
+            uri = uri,
+            typeChat = typeChat,
+            parentDirCG = providerPaths.PathDocumentsCG(),
+            parentDirCI = providerPaths.PathDocumentsCI(),
+            nameFile = nameFile
+        )
     )
 
     fun addAudio() = Audio(
+        context = context,
         uri = uri,
         typeChat = typeChat,
+        parentDirCG = providerPaths.PathAudiosCG(),
+        parentDirCI = providerPaths.PathAudiosCI(),
         nameFile = nameFile
     )
 }

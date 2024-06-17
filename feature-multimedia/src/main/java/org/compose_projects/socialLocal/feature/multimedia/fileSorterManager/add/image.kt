@@ -21,6 +21,7 @@ import android.net.Uri
 import android.util.Log
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
+import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.FileProvider
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -28,27 +29,22 @@ import java.io.InputStream
 
 private const val TAG = "prueba4"
 internal fun Image(
-    context: Context,
-    uri: Uri,
-    typeChat: String,
-    parentDirCG: File,
-    parentDirCI: File,
-    nameFile: String
+    fileProvider: FileProvider
 ) {
 
-    when (typeChat) {
+    when (fileProvider.typeChat) {
         chatglobal -> SaveImage(
-            context = context,
-            parentDir = parentDirCG,
-            uri = uri,
-            nameFile = nameFile
+            context = fileProvider.context,
+            parentDir = fileProvider.parentDirCG,
+            uri = fileProvider.uri,
+            nameFile = fileProvider.nameFile
         )
 
         chatinbox -> SaveImage(
-            context = context,
-            parentDir = parentDirCI,
-            uri = uri,
-            nameFile = nameFile
+            context = fileProvider.context,
+            parentDir = fileProvider.parentDirCI,
+            uri = fileProvider.uri,
+            nameFile = fileProvider.nameFile
         )
     }
 }
@@ -72,13 +68,13 @@ private fun SaveImage(
                 }
                 inputStream.close()
                 outputStream.close()
-                Log.d(TAG, "Se creó el archivo $nameFile correctamente")
+                //Log.d(TAG, "Se creó el archivo $nameFile correctamente")
             } else {
-                Log.e(TAG, "No se pudo abrir el InputStream de la URI")
+                //Log.e(TAG, "No se pudo abrir el InputStream de la URI")
             }
         } catch (e: IOException) {
             e.printStackTrace()
-            Log.e(TAG, "Error: $e")
+            //Log.e(TAG, "Error: $e")
         }
     }
 }
