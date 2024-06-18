@@ -16,7 +16,7 @@
 
   2.1.3 Creación de funcionalidad para la gestion de nombres [x]
 
-  2.2 Creación de sistema para almacenar los nombres gestionados anteriormente con [room] (https://developer.android.com/training/data-storage/room?hl=es-419)
+  2.2 Creación de sistema para almacenar los nombres gestionados anteriormente con [room](https://developer.android.com/training/data-storage/room?hl=es-419)
 
 
 ***1. Introducción:***
