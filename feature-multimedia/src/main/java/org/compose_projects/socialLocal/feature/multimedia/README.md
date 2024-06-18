@@ -16,8 +16,9 @@
 
   2.1.3 Creación de funcionalidad para la gestion de nombres [x]
 
-  2.2 Creación de sistema para almacenar los nombres gestionados anteriormente con [room](https://developer.android.com/training/data-storage/room?hl=es-419)
+  2.2 Creación de sistema para almacenar los nombres gestionados anteriormente con [room](https://developer.android.com/training/data-storage/room?hl=es-419) [ ]
 
+  2.2.1 ...to be continue
 
 ***1. Introducción:***
 * En esta feature buscamos una sólida gestión para todo el contenido multimedia emitido por la aplicación. Haciendo uso de varias técnicas para poder lograr este hecho de una manera sencilla y efeciente. Entre los principales objetivos tenemos:
