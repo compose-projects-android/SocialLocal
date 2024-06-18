@@ -18,8 +18,6 @@ package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.ad
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
-import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.FileProvider

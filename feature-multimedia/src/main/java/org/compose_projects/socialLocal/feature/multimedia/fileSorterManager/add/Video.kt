@@ -41,7 +41,7 @@ internal fun Video(
 
         chatinbox -> SaveVideo(
             context = fileProvider.context,
-            parentDir = fileProvider.parentDirCG,
+            parentDir = fileProvider.parentDirCI,
             uri = fileProvider.uri,
             nameFile = fileProvider.nameFile
         )
@@ -74,5 +74,6 @@ private fun SaveVideo(
 
     } catch (e: Exception) {
         e.printStackTrace()
+        Log.d(TAG, "Ocurrio un error al cargar el video: $e")
     }
 }

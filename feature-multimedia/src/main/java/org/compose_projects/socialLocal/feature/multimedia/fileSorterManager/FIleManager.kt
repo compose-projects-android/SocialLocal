@@ -19,10 +19,7 @@ package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.appname
-import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatglobal
-import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.chatinbox
-import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.images
+
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Audio
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Document
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.add.Image
@@ -65,8 +62,8 @@ internal class FileManager(
             context = context,
             uri = uri,
             typeChat = typeChat,
-            parentDirCG = providerPaths.PathImagesCG(),
-            parentDirCI = providerPaths.PathImagesCI(),
+            parentDirCG = providerPaths.PathVideosCG(),
+            parentDirCI = providerPaths.PathVideosCI(),
             nameFile = nameFile
         )
     )
@@ -91,3 +88,5 @@ internal class FileManager(
         nameFile = nameFile
     )
 }
+
+

@@ -18,8 +18,12 @@ package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager
 
 import android.content.Context
 import android.net.Uri
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.audio
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.document
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.image
+import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.video
 
-internal class FilePicker(private val context: Context) {
+private class FilePicker(private val context: Context) {
     fun addImage(uri: Uri, typeChat: String, nameFile: String) =
         FileManager(
             context = context,
@@ -52,5 +56,50 @@ internal class FilePicker(private val context: Context) {
             nameFile = nameFile
 
         ).addAudio()
+}
+
+
+
+internal fun  SaveFile(context: Context, uri: Uri, typeChat: String) {
+    val namePicker = namePicker(uri.toString())
+    val filePicker = FilePicker(context)
+
+    return when (namePicker.type) {
+        image -> {
+            filePicker.addImage(
+                uri = uri,
+                typeChat = typeChat,
+                nameFile = namePicker.nameFile
+            )
+        }
+
+        video -> {
+            filePicker.addVideo(
+                uri = uri,
+                typeChat = typeChat,
+                nameFile = namePicker.nameFile
+            )
+        }
+
+        audio -> {
+            filePicker.addAudio(
+                uri = uri,
+                typeChat = typeChat,
+                nameFile = namePicker.nameFile
+            )
+        }
+
+        document -> {
+            filePicker.addDocument(
+                uri = uri,
+                typeChat = typeChat,
+                nameFile = namePicker.nameFile
+            )
+        }
+
+        else -> {
+
+        }
+    }
 }
 
