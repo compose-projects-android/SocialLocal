@@ -1,5 +1,3 @@
-package org.compose_projects.socialLocal.core.database
-
 /*
  * Copyright (C) 2022 The Android Open Source Project
  *
@@ -16,26 +14,10 @@ package org.compose_projects.socialLocal.core.database
  * limitations under the License.
  */
 
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
+package org.compose_projects.socialLocal.core.data.data
 
-@Entity
-data class Multimedia(
-    val file: String
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
-
-@Dao
-interface MultimediaDao {
-    @Query("SELECT * FROM Multimedia")
-    fun getMultimedia(): Flow<List<Multimedia>>
-
-    @Insert
-    suspend fun insertMedia(item: Multimedia)
-}
+data class ChatProvider(
+    val chatID: Int? = 0,
+    val isChatGlobal: Boolean,
+    val profileID: Int? = 0
+)

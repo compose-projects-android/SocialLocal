@@ -20,9 +20,10 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
-import org.compose_projects.socialLocal.core.data.repository.UsersRepository
+import org.compose_projects.socialLocal.core.data.repository.UserRepository
 import org.compose_projects.socialLocal.core.data.di.DataModule
-import org.compose_projects.socialLocal.core.data.di.FakeUsersRepository
+
+//import org.compose_projects.socialLocal.core.data.di.FakeUsersRepository
 
 @Module
 @TestInstallIn(
@@ -31,8 +32,10 @@ import org.compose_projects.socialLocal.core.data.di.FakeUsersRepository
 )
 interface FakeDataModule {
 
-    @Binds
+    /*
+        @Binds
     abstract fun bindRepository(
         fakeRepository: FakeUsersRepository
-    ): UsersRepository
+    ): UserRepository
+     */
 }

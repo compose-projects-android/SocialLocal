@@ -14,28 +14,11 @@
  * limitations under the License.
  */
 
-package org.compose_projects.socialLocal.core.database
+package org.compose_projects.socialLocal.core.data.data
 
-import androidx.room.Dao
-import androidx.room.Entity
-import androidx.room.Insert
-import androidx.room.PrimaryKey
-import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
-
-@Entity
-data class Users(
-    val name: String
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
-
-@Dao
-interface UsersDao {
-    @Query("SELECT * FROM users ORDER BY uid DESC LIMIT 10")
-    fun getUserss(): Flow<List<Users>>
-
-    @Insert
-    suspend fun insertUsers(item: Users)
-}
+data class ProfileProvider(
+    val profileID: Int? = 0,
+    val pathImageProfile: String,
+    val description: String? = null,
+    val userID: Int? = 0
+)

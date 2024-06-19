@@ -25,7 +25,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.compose_projects.socialLocal.core.data.repository.UsersRepository
+import org.compose_projects.socialLocal.core.data.data.UserProvider
+import org.compose_projects.socialLocal.core.data.repository.UserRepository
 import javax.inject.Inject
 import org.compose_projects.socialLocal.feature.home.ui.HomeUiState.Loading
 import org.compose_projects.socialLocal.feature.home.ui.HomeUiState.Error
@@ -33,11 +34,13 @@ import org.compose_projects.socialLocal.feature.home.ui.HomeUiState.Success
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val usersRepository: UsersRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
-    val uiState: StateFlow<HomeUiState> = usersRepository
-        .userss.map<List<String>, HomeUiState> { Success(data = it) }
+
+    /*
+        val uiState: StateFlow<HomeUiState> = userRepository
+        .user.map<List<String>, HomeUiState> { Success(data = it) }
         .catch { emit(Error(it)) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
 
@@ -46,11 +49,54 @@ class HomeViewModel @Inject constructor(
             usersRepository.add(name)
         }
     }
+     */
+
+    val uiState: StateFlow<HomeUiState> = userRepository
+        .user.map<List<UserProvider>, HomeUiState> { Success(data = it) }
+        .catch { emit(Error(it)) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
+
+    fun insertUser(iAm: Boolean, isFriend: Boolean, dataChatID: Int) =
+        viewModelScope.launch {
+            userRepository.insert(
+                userProvider = UserProvider(
+                    userID = 0,
+                    iAm = iAm,
+                    isFriend = isFriend,
+                    dataChatID = dataChatID
+                )
+            )
+        }
+
+    fun deleteUser(iAm: Boolean, isFriend: Boolean, dataChatID: Int) =
+        viewModelScope.launch {
+            userRepository.delete(
+                userProvider = UserProvider(
+                    userID = 0,
+                    iAm = iAm,
+                    isFriend = isFriend,
+                    dataChatID = dataChatID
+                )
+            )
+        }
+
+    fun updateUser(userID: Int, iAm: Boolean, isFriend: Boolean, dataChatID: Int) =
+        viewModelScope.launch {
+            userRepository.update(
+                userProvider = UserProvider(
+                    userID = userID,
+                    iAm = iAm,
+                    isFriend = isFriend,
+                    dataChatID = dataChatID
+                )
+            )
+        }
+
 
 }
 
 sealed interface HomeUiState {
     data object Loading : HomeUiState
     data class Error(val throwable: Throwable) : HomeUiState
-    data class Success(val data: List<String>) : HomeUiState
+    data class Success(val data: List<UserProvider>) : HomeUiState
 }

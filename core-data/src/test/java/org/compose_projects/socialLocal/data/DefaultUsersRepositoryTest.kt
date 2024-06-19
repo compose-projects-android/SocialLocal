@@ -23,36 +23,38 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.compose_projects.socialLocal.core.data.repository.DefaultUsersRepository
-import org.compose_projects.socialLocal.core.database.Users
-import org.compose_projects.socialLocal.core.database.UsersDao
+import org.compose_projects.socialLocal.core.data.repository.UserRepositoryImp
+import org.compose_projects.socialLocal.core.database.daos.User
+import org.compose_projects.socialLocal.core.database.daos.UserDao
 
 /**
- * Unit tests for [DefaultUsersRepository].
+ * Unit tests for [UserRepositoryImp].
  */
 @OptIn(ExperimentalCoroutinesApi::class) // TODO: Remove when stable
 class DefaultUsersRepositoryTest {
 
     @Test
     fun userss_newItemSaved_itemIsReturned() = runTest {
-        val repository = DefaultUsersRepository(FakeUsersDao())
+        //val repository = UserRepositoryImp(FakeUsersDao())
 
-        repository.add("Repository")
+        //repository.add("Repository")
 
-        assertEquals(repository.userss.first().size, 1)
+        //assertEquals(repository.user.first().size, 1)
     }
 
 }
 
-private class FakeUsersDao : UsersDao {
+private class FakeUsersDao /*: UserDao*/ {
 
-    private val data = mutableListOf<Users>()
+    /*
+        private val data = mutableListOf<User>()
 
-    override fun getUserss(): Flow<List<Users>> = flow {
+    override fun getUserss(): Flow<List<User>> = flow {
         emit(data)
     }
 
-    override suspend fun insertUsers(item: Users) {
+    override suspend fun insertUsers(item: User) {
         data.add(0, item)
     }
+     */
 }

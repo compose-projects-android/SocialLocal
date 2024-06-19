@@ -38,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import org.compose_projects.socialLocal.core.ui.components.bottomChat.BottomChat
@@ -56,7 +57,7 @@ private const val chatglobal = "Chat Global"
 private const val chatinbox = "Chats Privados"
 
 @Composable
-fun HomeScreen(bottomChatViewModel: BottomChatViewModel = viewModel()) {
+fun HomeScreen(bottomChatViewModel: BottomChatViewModel = viewModel(), homeViewModel: HomeViewModel = hiltViewModel()) {
     val messages: List<messages_example> = listOf(
         messages.message1,
         messages.message2,
@@ -102,7 +103,11 @@ fun HomeScreen(bottomChatViewModel: BottomChatViewModel = viewModel()) {
         coroutineScope.launch {
             listState.scrollToItem(messages.lastIndex)
         }
+
     }
+
+
+
 
     var showProfile by remember { mutableStateOf(false) }
     var nameProfile by remember { mutableStateOf("") }
@@ -155,7 +160,9 @@ fun HomeScreen(bottomChatViewModel: BottomChatViewModel = viewModel()) {
         }
 
         //add: updated the actions for each item
-        BottomChat(modifier = Modifier.align(Alignment.BottomCenter).padding(horizontal = 4.dp),
+        BottomChat(modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .padding(horizontal = 4.dp),
             emojiAction = {
                 emojiState = true
                 keyboardController?.hide()

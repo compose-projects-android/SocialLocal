@@ -2,21 +2,33 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "99f9f468a66a75c972dc500ad6849bca",
+    "identityHash": "2c233eea4ed71a1a983068a09d9a43bc",
     "entities": [
       {
-        "tableName": "Users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "tableName": "User",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `iAm` INTEGER NOT NULL, `isFriend` INTEGER NOT NULL, `dataChatID` INTEGER NOT NULL)",
         "fields": [
           {
-            "fieldPath": "name",
-            "columnName": "name",
-            "affinity": "TEXT",
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "iAm",
+            "columnName": "iAm",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isFriend",
+            "columnName": "isFriend",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataChatID",
+            "columnName": "dataChatID",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -24,7 +36,7 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "uid"
+            "userID"
           ]
         },
         "indices": [],
@@ -32,17 +44,85 @@
       },
       {
         "tableName": "Multimedia",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`file` TEXT NOT NULL, `uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`multimediaID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pathImage` TEXT, `pathVideo` TEXT, `pathDocument` TEXT, `pathAudio` TEXT, `message` TEXT)",
         "fields": [
           {
-            "fieldPath": "file",
-            "columnName": "file",
+            "fieldPath": "multimediaID",
+            "columnName": "multimediaID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pathImage",
+            "columnName": "pathImage",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pathVideo",
+            "columnName": "pathVideo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pathDocument",
+            "columnName": "pathDocument",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "pathAudio",
+            "columnName": "pathAudio",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "multimediaID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "DataChat",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`dataChatID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dateTime` TEXT NOT NULL, `iSend` INTEGER NOT NULL, `contentType` TEXT NOT NULL, `multimediaID` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "dataChatID",
+            "columnName": "dataChatID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dateTime",
+            "columnName": "dateTime",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "iSend",
+            "columnName": "iSend",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contentType",
+            "columnName": "contentType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "multimediaID",
+            "columnName": "multimediaID",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -50,7 +130,77 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "uid"
+            "dataChatID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Profile",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`profileID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `pathImageProfile` TEXT NOT NULL, `description` TEXT, `userID` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "profileID",
+            "columnName": "profileID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pathImageProfile",
+            "columnName": "pathImageProfile",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "userID",
+            "columnName": "userID",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "profileID"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Chat",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`chatID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `isChatGlobal` INTEGER NOT NULL, `profileID` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "chatID",
+            "columnName": "chatID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isChatGlobal",
+            "columnName": "isChatGlobal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "profileID",
+            "columnName": "profileID",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "chatID"
           ]
         },
         "indices": [],
@@ -60,7 +210,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '99f9f468a66a75c972dc500ad6849bca')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2c233eea4ed71a1a983068a09d9a43bc')"
     ]
   }
 }

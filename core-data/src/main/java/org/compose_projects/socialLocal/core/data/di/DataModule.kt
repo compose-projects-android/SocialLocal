@@ -22,8 +22,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
-import org.compose_projects.socialLocal.core.data.repository.UsersRepository
-import org.compose_projects.socialLocal.core.data.repository.DefaultUsersRepository
+import org.compose_projects.socialLocal.core.data.data.UserProvider
+import org.compose_projects.socialLocal.core.data.repository.UserRepository
+import org.compose_projects.socialLocal.core.data.repository.UserRepositoryImp
 import org.compose_projects.socialLocal.core.data.repository.MultimediaRepository
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -35,8 +36,8 @@ interface DataModule {
     @Singleton
     @Binds
     fun bindsUsersRepository(
-        usersRepository: DefaultUsersRepository
-    ): UsersRepository
+        usersRepository: UserRepositoryImp
+    ): UserRepository
 
     @Singleton
     @Binds
@@ -45,12 +46,5 @@ interface DataModule {
     ): MultimediaRepository
 }
 
-class FakeUsersRepository @Inject constructor() : UsersRepository {
-    override val userss: Flow<List<String>> = flowOf(fakeUserss)
 
-    override suspend fun add(name: String) {
-        throw NotImplementedError()
-    }
-}
-
-val fakeUserss = listOf("One", "Two", "Three")
+//val fakeUserss = listOf("One", "Two", "Three")
