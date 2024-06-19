@@ -44,6 +44,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun multimediaDao(): MultimediaDao
     abstract fun dataChatDao(): DataChatDao
     abstract fun profileDao(): ProfileDao
-
     abstract fun chatDao(): ChatDao
 }

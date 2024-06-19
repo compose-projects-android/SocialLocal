@@ -18,7 +18,11 @@ package org.compose_projects.socialLocal.feature.profile.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
@@ -28,9 +32,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import org.compose_projects.socialLocal.core.data.data.ChatProvider
+import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
+import org.compose_projects.socialLocal.core.data.data.ProfileProvider
+import org.compose_projects.socialLocal.feature.profile.ui.states.ChatState
+import org.compose_projects.socialLocal.feature.profile.ui.states.MultimediaState
+
 
 @Composable
 fun ProfileScreen() {
@@ -42,11 +51,15 @@ fun ProfileScreen() {
 
 @Composable
 fun SampleViewChat(profileViewModel: ProfileViewModel = hiltViewModel()) {
-    val uiState = profileViewModel.uiState.collectAsState().value
+    val uiState = profileViewModel.multimediaState.collectAsState().value
     Column {
         Button(onClick = { profileViewModel.insertChat(
-            ChatProvider(
-                isChatGlobal = false
+            MultimediaProvider(
+                pathImage = "/Documents/Media/ChatGlobal/images/image1.png",
+                pathVideo =  "/Documents/Media/ChatGlobal/videos/video.mp4",
+                pathAudio = "/Documents/Media/ChatGlobal/audios/audio.mp3",
+                pathDocument = "/Documents/Media/ChatGlobal/documents/document.dock",
+                message = "Hi world, i am Less and this is a test de room and databases"
             )
         ) }) {
             Text(text = "Insert Data")
@@ -54,7 +67,7 @@ fun SampleViewChat(profileViewModel: ProfileViewModel = hiltViewModel()) {
 
         Button(onClick = { profileViewModel.deleteChat(
             ChatProvider(
-                chatID = 4,
+                chatID = 0,
                 isChatGlobal = false
             )
         ) }) {
@@ -62,30 +75,27 @@ fun SampleViewChat(profileViewModel: ProfileViewModel = hiltViewModel()) {
         }
 
         when (uiState) {
-            is ProfileUiState.Loading -> {
+            is MultimediaState.Loading -> {
                 // Show a loading indicator
                 CircularProgressIndicator()
             }
-            is ProfileUiState.Error -> {
+            is MultimediaState.Error -> {
                 // Show an error message
-                val error = (uiState as ProfileUiState.Error).throwable
+                val error = (uiState as MultimediaState.Error).throwable
                 Text(text = "Error: ${error.message}")
             }
-            is ProfileUiState.Success -> {
+            is MultimediaState.Success -> {
                 // Show the list of ChatProviders
-                val chatProviders = (uiState as ProfileUiState.Success).data
+                val chatProviders = (uiState as MultimediaState.Success).data
                 ChatProviderList(chatProviders)
             }
         }
     }
-
-
-
 }
 
 
 @Composable
-fun ChatProviderList(chatProviders: List<ChatProvider>) {
+fun ChatProviderList(chatProviders: List<MultimediaProvider>) {
     LazyColumn {
         items(chatProviders) { chatProvider ->
             ChatProviderItem(chatProvider)
@@ -94,8 +104,24 @@ fun ChatProviderList(chatProviders: List<ChatProvider>) {
 }
 
 @Composable
-fun ChatProviderItem(chatProvider: ChatProvider) {
+fun ChatProviderItem(chatProvider: MultimediaProvider) {
     // Customize the item UI as needed
-    Text(text = "Chat ID: ${chatProvider.chatID}, Global: ${chatProvider.isChatGlobal}, Profile ID: ${chatProvider.profileID}")
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(90.dp)){
+
+        Text(text = chatProvider.message, modifier = Modifier.align(Alignment.TopCenter))
+
+        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
+            Row {
+                Text(text = chatProvider.pathAudio)
+                Text(text = chatProvider.pathVideo)
+            }
+            Row {
+                Text(text = chatProvider.pathImage)
+                Text(text = chatProvider.pathDocument)
+            }
+        }
+    }
 }
 

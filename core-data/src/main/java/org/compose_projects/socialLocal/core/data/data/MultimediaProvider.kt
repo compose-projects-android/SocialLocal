@@ -17,7 +17,7 @@
 package org.compose_projects.socialLocal.core.data.data
 
 data class MultimediaProvider(
-    val multimediaID: Int,
+    val multimediaID: Int = 0,
     val pathImage: String,
     val pathVideo: String,
     val pathDocument: String,

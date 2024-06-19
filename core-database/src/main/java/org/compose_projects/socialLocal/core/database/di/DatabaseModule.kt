@@ -28,12 +28,24 @@ import org.compose_projects.socialLocal.core.database.CONSTANTS.databaseName
 import org.compose_projects.socialLocal.core.database.daos.ChatDao
 import org.compose_projects.socialLocal.core.database.daos.DataChatDao
 import org.compose_projects.socialLocal.core.database.daos.MultimediaDao
+import org.compose_projects.socialLocal.core.database.daos.ProfileDao
 import org.compose_projects.socialLocal.core.database.daos.UserDao
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
+
+    @Provides
+    @Singleton
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase =
+        Room.databaseBuilder(
+            appContext,
+            AppDatabase::class.java,
+            databaseName
+        ).build()
+
+
     @Provides
     fun provideUserDao(appDatabase: AppDatabase): UserDao =
         appDatabase.userDao()
@@ -54,12 +66,9 @@ class DatabaseModule {
         appDatabase.chatDao()
 
     @Provides
-    @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase =
-        Room.databaseBuilder(
-            appContext,
-            AppDatabase::class.java,
-            databaseName
-        ).build()
+    fun provideProfileDao(appDatabase: AppDatabase): ProfileDao =
+        appDatabase.profileDao()
+
+
 
 }
