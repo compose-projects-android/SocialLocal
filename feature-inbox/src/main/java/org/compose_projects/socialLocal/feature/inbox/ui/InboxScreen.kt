@@ -17,7 +17,7 @@
 package org.compose_projects.socialLocal.feature.inbox.ui
 
 import androidx.compose.runtime.Composable
-
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 
 @Composable
@@ -25,6 +25,8 @@ fun InboxScreen() {
     //ComposeEmojiPickerDemo()
 
 }
+
+
 
 
 

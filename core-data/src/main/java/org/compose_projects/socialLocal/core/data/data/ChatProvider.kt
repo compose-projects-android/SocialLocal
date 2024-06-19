@@ -17,7 +17,7 @@
 package org.compose_projects.socialLocal.core.data.data
 
 data class ChatProvider(
-    val chatID: Int? = 0,
+    val chatID: Int = 0,
     val isChatGlobal: Boolean,
-    val profileID: Int? = 0
+    val profileID: Int = 0
 )

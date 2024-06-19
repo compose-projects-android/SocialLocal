@@ -37,20 +37,6 @@ class HomeViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-
-    /*
-        val uiState: StateFlow<HomeUiState> = userRepository
-        .user.map<List<String>, HomeUiState> { Success(data = it) }
-        .catch { emit(Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), Loading)
-
-    fun addUsers(name: String) {
-        viewModelScope.launch {
-            usersRepository.add(name)
-        }
-    }
-     */
-
     val uiState: StateFlow<HomeUiState> = userRepository
         .user.map<List<UserProvider>, HomeUiState> { Success(data = it) }
         .catch { emit(Error(it)) }
@@ -91,8 +77,6 @@ class HomeViewModel @Inject constructor(
                 )
             )
         }
-
-
 }
 
 sealed interface HomeUiState {

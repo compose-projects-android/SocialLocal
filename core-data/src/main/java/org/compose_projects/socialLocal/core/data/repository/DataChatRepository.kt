@@ -24,7 +24,7 @@ interface DataChatRepository {
 }
 
 
-internal class DataChatRepositoryImp @Inject constructor(
+class DataChatRepositoryImp @Inject constructor(
     private val dataChatDao: DataChatDao
 ) : DataChatRepository {
     override val dataChat: Flow<List<DataChatProvider>> =

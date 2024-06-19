@@ -42,7 +42,7 @@ interface ChatRepository {
     )
 }
 
-internal class ChatRepositoryImp @Inject constructor(
+class ChatRepositoryImp @Inject constructor(
     private val chatDao: ChatDao
 ): ChatRepository {
     override val chat: Flow<List<ChatProvider>> =
@@ -51,7 +51,7 @@ internal class ChatRepositoryImp @Inject constructor(
                 ChatProvider(
                     chatID = it.chatID,
                     isChatGlobal = it.isChatGlobal,
-                    //profileID = it.profileID
+                    profileID = it.profileID ?: 0
                 )
             }
         }
@@ -59,9 +59,8 @@ internal class ChatRepositoryImp @Inject constructor(
     override suspend fun insert(chatProvider: ChatProvider) {
         chatDao.insertChat(
             Chat(
-                chatID = chatProvider.chatID ?: 0,
                 isChatGlobal = chatProvider.isChatGlobal,
-                profileID = chatProvider.profileID ?: 0
+                profileID = chatProvider.profileID
             )
         )
     }
@@ -69,9 +68,9 @@ internal class ChatRepositoryImp @Inject constructor(
     override suspend fun update(chatProvider: ChatProvider) {
         chatDao.updateChat(
             Chat(
-                chatID = chatProvider.chatID ?: 0,
+                chatID = chatProvider.chatID,
                 isChatGlobal = chatProvider.isChatGlobal,
-                profileID = chatProvider.profileID ?: 0
+                profileID = chatProvider.profileID
             )
         )
     }
@@ -79,9 +78,9 @@ internal class ChatRepositoryImp @Inject constructor(
     override suspend fun delete(chatProvider: ChatProvider) {
         chatDao.deleteChat(
             Chat(
-                chatID = chatProvider.chatID ?: 0,
+                chatID = chatProvider.chatID,
                 isChatGlobal = chatProvider.isChatGlobal,
-                profileID = chatProvider.profileID ?: 0
+                profileID = chatProvider.profileID
             )
         )
     }

@@ -38,7 +38,7 @@ interface MultimediaRepository {
     )
 }
 
-internal class MultimediaRepositoryImp @Inject constructor(
+class MultimediaRepositoryImp @Inject constructor(
     private val multimediaDao: MultimediaDao
 ) : MultimediaRepository {
 

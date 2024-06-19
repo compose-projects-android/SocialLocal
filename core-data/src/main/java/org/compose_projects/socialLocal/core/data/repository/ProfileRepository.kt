@@ -40,7 +40,7 @@ interface ProfileRepository {
 }
 
 
-internal class ProfileRepositoryImp @Inject constructor(
+class ProfileRepositoryImp @Inject constructor(
     private val profileDao: ProfileDao
 ): ProfileRepository {
     override val profile: Flow<List<ProfileProvider>> =
