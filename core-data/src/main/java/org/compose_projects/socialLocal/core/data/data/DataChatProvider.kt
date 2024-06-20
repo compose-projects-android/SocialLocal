@@ -17,7 +17,7 @@
 package org.compose_projects.socialLocal.core.data.data
 
 data class DataChatProvider(
-    val dataChatID: Int,
+    val dataChatID: Int = 0,
     val dateTime: String,
     val iSend: Boolean,
     val contentType: String,

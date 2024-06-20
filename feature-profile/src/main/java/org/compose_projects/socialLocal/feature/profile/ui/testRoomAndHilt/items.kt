@@ -90,18 +90,13 @@ fun DataChatProviderItem(chatProvider: DataChatProvider) {
             .fillMaxWidth()
             .height(90.dp)
     ) {
-        Text(
-            text = chatProvider.dataChatID.toString(),
-            modifier = Modifier.align(Alignment.TopCenter)
-        )
-        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
-            Row {
+        Column(modifier = Modifier.align(Alignment.TopCenter)) {
                 Text(text = chatProvider.dataChatID.toString())
+                Text(text = chatProvider.dateTime)
                 Text(text = chatProvider.iSend.toString())
                 Text(text = chatProvider.contentType)
                 Text(text = chatProvider.multimediaID.toString())
 
-            }
         }
     }
 }
@@ -138,8 +133,8 @@ fun MultimediaProviderItem(
             }
         }
     }) {
-        Edit(value = valueMultimedia, onValueChange = { valueMultimedia = it }, actionAdd = {
-            testRoomAndHiltViewModel.insertChat(
+        EditDelete(value = valueMultimedia, onValueChange = { valueMultimedia = it }, actionAdd = {
+            testRoomAndHiltViewModel.insertMultimedia(
                 MultimediaProvider(
                     pathImage = chatProvider.pathImage,
                     pathVideo = chatProvider.pathVideo,

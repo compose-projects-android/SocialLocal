@@ -50,7 +50,7 @@ class TestRoomAndHiltViewModel @Inject constructor(
 
 
     val userState: StateFlow<UserState> = userRepository
-        .user.map<List<UserProvider>, UserState> { UserState.Success(data = it)}
+        .user.map<List<UserProvider>, UserState> { UserState.Success(data = it) }
         .catch { emit(UserState.Error(it)) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UserState.Loading)
 
@@ -65,16 +65,40 @@ class TestRoomAndHiltViewModel @Inject constructor(
         .catch { emit(MultimediaState.Error(it)) }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MultimediaState.Loading)
 
-    fun insertChat(multimediaProvider: MultimediaProvider) =
+
+    //Inserts
+    fun insertChat(chatProvider: ChatProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            chatRepository.insert(
+                chatProvider = chatProvider
+            )
+        }
+
+    fun insertProfile(profileProvider: ProfileProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            profileRepository.insert(
+                profileProvider = profileProvider
+            )
+        }
+
+    fun insertUser(userProvider: UserProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.insert(
+                userProvider = userProvider
+            )
+        }
+
+    fun insertDataChat(dataChatProvider: DataChatProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            dataChatRepository.insert(
+                dataChatProvider = dataChatProvider
+            )
+        }
+
+    fun insertMultimedia(multimediaProvider: MultimediaProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             multimediaRepository.insert(
-                MultimediaProvider(
-                    pathImage = multimediaProvider.pathImage,
-                    pathVideo = multimediaProvider.pathVideo,
-                    pathDocument = multimediaProvider.pathDocument,
-                    pathAudio = multimediaProvider.pathAudio,
-                    message = multimediaProvider.message
-                )
+                multimediaProvider = multimediaProvider
             )
         }
 
@@ -82,26 +106,15 @@ class TestRoomAndHiltViewModel @Inject constructor(
     fun updateChat(chatProvider: ChatProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             chatRepository.update(
-                ChatProvider(
-                    chatID = chatProvider.chatID,
-                    isChatGlobal = chatProvider.isChatGlobal,
-                    profileID = chatProvider.chatID
-                )
+                chatProvider = chatProvider
             )
         }
 
 
-    fun deleteChat(chatProvider: MultimediaProvider) =
+    fun deleteChat(multimediaProvider: MultimediaProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             multimediaRepository.delete(
-                MultimediaProvider(
-                    multimediaID = chatProvider.multimediaID,
-                    pathImage = chatProvider.pathImage,
-                    pathVideo = chatProvider.pathVideo,
-                    pathDocument = chatProvider.pathDocument,
-                    pathAudio = chatProvider.pathAudio,
-                    message = chatProvider.message
-                )
+                multimediaProvider = multimediaProvider
             )
         }
 
