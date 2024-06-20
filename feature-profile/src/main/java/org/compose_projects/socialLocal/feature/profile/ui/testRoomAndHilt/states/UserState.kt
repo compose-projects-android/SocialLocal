@@ -1,4 +1,4 @@
-package org.compose_projects.socialLocal.feature.profile.ui.states
+package org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states
 
 import org.compose_projects.socialLocal.core.data.data.ProfileProvider
 import org.compose_projects.socialLocal.core.data.data.UserProvider
