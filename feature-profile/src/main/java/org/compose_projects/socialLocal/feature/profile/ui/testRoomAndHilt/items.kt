@@ -144,7 +144,7 @@ fun MultimediaProviderItem(
                 )
             )
         }, actionDelete = {
-            testRoomAndHiltViewModel.deleteChat(
+            testRoomAndHiltViewModel.deleteMultimedia(
                 MultimediaProvider(
                     multimediaID = chatProvider.multimediaID,
                     pathImage = chatProvider.pathImage,

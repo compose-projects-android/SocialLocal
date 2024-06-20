@@ -103,6 +103,8 @@ class TestRoomAndHiltViewModel @Inject constructor(
         }
 
 
+    //updates
+
     fun updateChat(chatProvider: ChatProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             chatRepository.update(
@@ -111,12 +113,67 @@ class TestRoomAndHiltViewModel @Inject constructor(
         }
 
 
-    fun deleteChat(multimediaProvider: MultimediaProvider) =
+    fun updateProfile(profileProvider: ProfileProvider) =
         viewModelScope.launch(Dispatchers.IO) {
-            multimediaRepository.delete(
+            profileRepository.update(
+                profileProvider = profileProvider
+            )
+        }
+
+    fun updateUser(userProvider: UserProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.update(
+                userProvider = userProvider
+            )
+        }
+
+    fun updatedataChat(dataChatProvider: DataChatProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            dataChatRepository.update(
+                dataChatProvider = dataChatProvider
+            )
+        }
+    fun updateMultimedia(multimediaProvider: MultimediaProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            multimediaRepository.update(
                 multimediaProvider = multimediaProvider
             )
         }
 
 
+    //deletes
+    fun deleteChat(chatProvider: ChatProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            chatRepository.delete(
+                chatProvider = chatProvider
+            )
+        }
+
+
+    fun deleteProfile(profileProvider: ProfileProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            profileRepository.delete(
+                profileProvider = profileProvider
+            )
+        }
+
+    fun deleteUser(userProvider: UserProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            userRepository.delete(
+                userProvider = userProvider
+            )
+        }
+
+    fun deleteDataChat(dataChatProvider: DataChatProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            dataChatRepository.delete(
+                dataChatProvider = dataChatProvider
+            )
+        }
+    fun deleteMultimedia(multimediaProvider: MultimediaProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            multimediaRepository.delete(
+                multimediaProvider = multimediaProvider
+            )
+        }
 }

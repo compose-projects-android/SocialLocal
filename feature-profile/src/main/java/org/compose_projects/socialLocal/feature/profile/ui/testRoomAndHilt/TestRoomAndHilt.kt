@@ -166,7 +166,6 @@ fun TestRoomAndHilt(
             }
         }
 
-
         if (configTest.multimediaEntity){
             when (multimediaState) {
                 is MultimediaState.Loading -> {
