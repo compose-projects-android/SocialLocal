@@ -929,8 +929,8 @@ private fun ContentEditItemForMultimedia(
         )
 
         TextField(
-            value = pathVideo,
-            onValueChange = { pathVideo = it },
+            value = pathAudio,
+            onValueChange = { pathAudio = it },
             modifier = Modifier
                 .fillMaxWidth(1F)
                 .height(50.dp)

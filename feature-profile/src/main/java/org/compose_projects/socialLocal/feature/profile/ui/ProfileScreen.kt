@@ -30,7 +30,7 @@ fun ProfileScreen() {
     Box(Modifier.fillMaxSize(1F), contentAlignment = Alignment.TopCenter) {
         TestRoomAndHilt(
             configTest = ConfigTest(
-                profileEntity = true
+                multimediaEntity = true
             )
         )
     }

@@ -18,6 +18,7 @@ package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager
 
 import android.content.Context
 import android.net.Uri
+import android.widget.Toast
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.audio
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.document
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.image
@@ -98,7 +99,7 @@ internal fun  SaveFile(context: Context, uri: Uri, typeChat: String) {
         }
 
         else -> {
-
+            Toast.makeText(context, "Archivo no válido", Toast.LENGTH_SHORT).show()
         }
     }
 }
