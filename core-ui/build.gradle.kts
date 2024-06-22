@@ -18,6 +18,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+
 }
 
 android {
@@ -65,6 +67,7 @@ dependencies {
 
     //feature multimedia
     implementation(project(":feature-multimedia"))
+    implementation(project(":core-data"))
 
     //compose Bom
     val composeBom = platform(libs.androidx.compose.bom)
@@ -73,6 +76,12 @@ dependencies {
 
     // Core Android dependencies
     implementation(libs.androidx.core.ktx)
+
+    // Hilt Dependency Injection
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
+    kapt(libs.hilt.compiler)
+
 
     // Compose
     implementation(libs.androidx.compose.ui)

@@ -1,4 +1,4 @@
-package org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt
+package org.compose_projects.socialLocal.core.data.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,16 +20,17 @@ import org.compose_projects.socialLocal.core.data.repository.DataChatRepository
 import org.compose_projects.socialLocal.core.data.repository.MultimediaRepository
 import org.compose_projects.socialLocal.core.data.repository.ProfileRepository
 import org.compose_projects.socialLocal.core.data.repository.UserRepository
-import javax.inject.Inject
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.ChatState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.DataChatState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.MultimediaState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.ProfileState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.UserState
+import org.compose_projects.socialLocal.core.data.common.states.ChatState
+import org.compose_projects.socialLocal.core.data.common.states.DataChatState
+import org.compose_projects.socialLocal.core.data.common.states.MultimediaState
+import org.compose_projects.socialLocal.core.data.common.states.ProfileState
+import org.compose_projects.socialLocal.core.data.common.states.UserState
 
+
+import javax.inject.Inject
 
 @HiltViewModel
-class TestRoomAndHiltViewModel @Inject constructor(
+class MultimediaViewModel @Inject constructor(
     private val chatRepository: ChatRepository,
     private val profileRepository: ProfileRepository,
     private val userRepository: UserRepository,
@@ -73,36 +74,30 @@ class TestRoomAndHiltViewModel @Inject constructor(
                 chatProvider = chatProvider
             )
         }
-
     fun insertProfile(profileProvider: ProfileProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             profileRepository.insert(
                 profileProvider = profileProvider
             )
         }
-
     fun insertUser(userProvider: UserProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.insert(
                 userProvider = userProvider
             )
         }
-
     fun insertDataChat(dataChatProvider: DataChatProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             dataChatRepository.insert(
                 dataChatProvider = dataChatProvider
             )
         }
-
     fun insertMultimedia(multimediaProvider: MultimediaProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             multimediaRepository.insert(
                 multimediaProvider = multimediaProvider
             )
         }
-
-
     //updates
 
     fun updateChat(chatProvider: ChatProvider) =
@@ -111,22 +106,18 @@ class TestRoomAndHiltViewModel @Inject constructor(
                 chatProvider = chatProvider
             )
         }
-
-
     fun updateProfile(profileProvider: ProfileProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             profileRepository.update(
                 profileProvider = profileProvider
             )
         }
-
     fun updateUser(userProvider: UserProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.update(
                 userProvider = userProvider
             )
         }
-
     fun updatedataChat(dataChatProvider: DataChatProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             dataChatRepository.update(
@@ -148,22 +139,18 @@ class TestRoomAndHiltViewModel @Inject constructor(
                 chatProvider = chatProvider
             )
         }
-
-
     fun deleteProfile(profileProvider: ProfileProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             profileRepository.delete(
                 profileProvider = profileProvider
             )
         }
-
     fun deleteUser(userProvider: UserProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             userRepository.delete(
                 userProvider = userProvider
             )
         }
-
     fun deleteDataChat(dataChatProvider: DataChatProvider) =
         viewModelScope.launch(Dispatchers.IO) {
             dataChatRepository.delete(

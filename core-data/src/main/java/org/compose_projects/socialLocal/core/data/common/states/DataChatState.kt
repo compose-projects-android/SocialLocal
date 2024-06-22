@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package org.compose_projects.socialLocal.feature.multimedia.saveInfoInRoomManager.states
+package org.compose_projects.socialLocal.core.data.common.states
 
-import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
+import org.compose_projects.socialLocal.core.data.data.DataChatProvider
 
-sealed interface MultimediaState {
-    data object Loading : MultimediaState
+sealed interface DataChatState {
+    data object Loading : DataChatState
 
-    data class Error(val throwable: Throwable) : MultimediaState
+    data class Error(val throwable: Throwable) : DataChatState
 
-    data class Success(val data: List<MultimediaProvider>) : MultimediaState
+    data class Success(val data: List<DataChatProvider>) : DataChatState
 }

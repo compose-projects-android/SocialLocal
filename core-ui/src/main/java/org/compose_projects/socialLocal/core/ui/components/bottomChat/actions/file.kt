@@ -26,14 +26,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
 import org.compose_projects.socialLocal.feature.multimedia.MultimediaManager
 
 
 private const val TAG = "prueba1"
 
 @Composable
-fun FileAction(state: Boolean, typeChat: String, onDismissRequest: () -> Unit) {
+fun FileAction(
+    state: Boolean,
+    typeChat: String,
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
+    onDismissRequest: () -> Unit
+) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
     val uri = remember { mutableStateOf<Uri?>(null) }
@@ -42,7 +50,7 @@ fun FileAction(state: Boolean, typeChat: String, onDismissRequest: () -> Unit) {
         var directories by remember { mutableStateOf("") }
     */
 
-    val multimediaManager: MultimediaManager = MultimediaManager(context)
+    val multimediaManager: MultimediaManager = MultimediaManager(context, multimediaViewModel)
 
     LaunchedEffect(Unit) {
         this.launch {
@@ -63,6 +71,15 @@ fun FileAction(state: Boolean, typeChat: String, onDismissRequest: () -> Unit) {
             uri.value = result
             multimediaManager.apply {
                 this.saveFile(uri = result, typeChat = typeChat)
+                this.addMultimedia(
+                    MultimediaProvider(
+                        pathImage = "Juegputa",
+                        pathVideo = "Hp FUnciona",
+                        pathDocument = "Malparido",
+                        pathAudio = "JAJAJAJ",
+                        message = "IDIOTAS SOY UN CRAK"
+                    )
+                )
             }
             onDismissRequest()
 

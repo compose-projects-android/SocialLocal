@@ -51,6 +51,7 @@ android {
 
 dependencies {
     implementation(project(":core-database"))
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     // Arch Components
     implementation(libs.hilt.android)

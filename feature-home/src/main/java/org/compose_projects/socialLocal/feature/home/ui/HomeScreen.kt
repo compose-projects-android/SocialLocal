@@ -196,9 +196,7 @@ fun HomeScreen(
             keyboardController?.show()
         }
 
-        FileAction(state = fileState, typeChat = chatglobal) {
-            fileState = false
-        }
+        FileAction(state = fileState, typeChat = chatglobal, onDismissRequest = {fileState = false})
 
     }
 

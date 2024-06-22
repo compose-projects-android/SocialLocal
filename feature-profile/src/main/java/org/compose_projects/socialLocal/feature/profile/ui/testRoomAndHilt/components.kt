@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
 import org.compose_projects.socialLocal.core.data.data.ChatProvider
 import org.compose_projects.socialLocal.core.data.data.DataChatProvider
 import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
@@ -103,7 +104,7 @@ private fun DialogAdd(
 @Composable
 private fun ContentAdd(
     entity: String,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
     val chatEntity = "Chat Entity"
     val profileEntity = "Profile Entity"
@@ -128,7 +129,7 @@ private fun ContentAdd(
                 )
 
                 Button(onClick = {
-                    testRoomAndHiltViewModel.insertChat(
+                    multimediaViewModel.insertChat(
                         ChatProvider(
                             isChatGlobal = if (isChatGlobal == "true") true else false
                         )
@@ -158,7 +159,7 @@ private fun ContentAdd(
                 )
 
                 Button(onClick = {
-                    testRoomAndHiltViewModel.insertProfile(
+                    multimediaViewModel.insertProfile(
                         ProfileProvider(
                             pathImageProfile = pathImageProfile,
                             description = description
@@ -185,7 +186,7 @@ private fun ContentAdd(
                     modifier = modifier
                 )
                 Button(onClick = {
-                    testRoomAndHiltViewModel.insertUser(
+                    multimediaViewModel.insertUser(
                         UserProvider(
                             iAm = if (iAm == "true") true else false,
                             isFriend = if (isFriend == "true") true else false
@@ -221,7 +222,7 @@ private fun ContentAdd(
                 )
 
                 Button(onClick = {
-                    testRoomAndHiltViewModel.insertDataChat(
+                    multimediaViewModel.insertDataChat(
                         DataChatProvider(
                             dateTime = dateTime,
                             iSend = if (iSend == "true") true else false,
@@ -270,7 +271,7 @@ private fun ContentAdd(
                     modifier = modifier
                 )
                 Button(onClick = {
-                    testRoomAndHiltViewModel.insertMultimedia(
+                    multimediaViewModel.insertMultimedia(
                         MultimediaProvider(
                             pathImage = pathImage,
                             pathVideo = pathVideo,
@@ -372,7 +373,7 @@ private fun ContentDeleteChat(
     chatProvider: ChatProvider,
     entity: String,
     onDissmissRequest: () -> Unit,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
 
 
@@ -397,7 +398,7 @@ private fun ContentDeleteChat(
             }
 
             Button(onClick = {
-                testRoomAndHiltViewModel.deleteChat(
+                multimediaViewModel.deleteChat(
                     chatProvider
                 )
                 onDissmissRequest()
@@ -422,7 +423,7 @@ private fun ContentDeleteProfile(
     profileProvider: ProfileProvider,
     entity: String,
     onDissmissRequest: () -> Unit,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
 
 
@@ -447,7 +448,7 @@ private fun ContentDeleteProfile(
             }
 
             Button(onClick = {
-                testRoomAndHiltViewModel.deleteProfile(
+                multimediaViewModel.deleteProfile(
                     profileProvider
                 )
                 onDissmissRequest()
@@ -472,7 +473,7 @@ private fun ContentDeleteUser(
     userProvider: UserProvider,
     entity: String,
     onDissmissRequest: () -> Unit,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
 
 
@@ -497,7 +498,7 @@ private fun ContentDeleteUser(
             }
 
             Button(onClick = {
-                testRoomAndHiltViewModel.deleteUser(
+                multimediaViewModel.deleteUser(
                     userProvider
                 )
                 onDissmissRequest()
@@ -523,7 +524,7 @@ private fun ContentDeleteDataChat(
     dataChatProvider: DataChatProvider,
     entity: String,
     onDissmissRequest: () -> Unit,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
 
 
@@ -548,7 +549,7 @@ private fun ContentDeleteDataChat(
             }
 
             Button(onClick = {
-                testRoomAndHiltViewModel.deleteDataChat(
+                multimediaViewModel.deleteDataChat(
                     dataChatProvider
                 )
                 onDissmissRequest()
@@ -574,7 +575,7 @@ private fun ContentDeleteMultimedia(
     multimediaProvider: MultimediaProvider,
     entity: String,
     onDissmissRequest: () -> Unit,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
 
 
@@ -599,7 +600,7 @@ private fun ContentDeleteMultimedia(
             }
 
             Button(onClick = {
-                testRoomAndHiltViewModel.deleteMultimedia(
+                multimediaViewModel.deleteMultimedia(
                     multimediaProvider
                 )
                 onDissmissRequest()
@@ -640,7 +641,7 @@ private fun DialogEditItem(
 @Composable
 private fun ContentEditItemForChat(
     chatProvider: ChatProvider,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel(),
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
     onDissmissRequest: () -> Unit
 ) {
     var chatID by remember { mutableStateOf(chatProvider.chatID.toString()) }
@@ -674,7 +675,7 @@ private fun ContentEditItemForChat(
         )
 
         Button(onClick = {
-            testRoomAndHiltViewModel.updateChat(
+            multimediaViewModel.updateChat(
                 ChatProvider(
                     chatID = chatID.toInt(),
                     isChatGlobal = if (isChatGlobal == "true") true else false,
@@ -692,7 +693,7 @@ private fun ContentEditItemForChat(
 @Composable
 private fun ContentEditItemForProfile(
     profileProvider: ProfileProvider,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel(),
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
     onDissmissRequest: () -> Unit
 ) {
 
@@ -736,7 +737,7 @@ private fun ContentEditItemForProfile(
         )
 
         Button(onClick = {
-            testRoomAndHiltViewModel.updateProfile(
+            multimediaViewModel.updateProfile(
                 ProfileProvider(
                     profileID = profileID.toInt(),
                     pathImageProfile = pathImageProfile,
@@ -755,7 +756,7 @@ private fun ContentEditItemForProfile(
 @Composable
 private fun ContentEditItemForUser(
     userProvider: UserProvider,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel(),
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
     onDissmissRequest: () -> Unit
 ) {
 
@@ -799,7 +800,7 @@ private fun ContentEditItemForUser(
         )
 
         Button(onClick = {
-            testRoomAndHiltViewModel.updateUser(
+            multimediaViewModel.updateUser(
                 UserProvider(
                     userID = userId.toInt(),
                     iAm = if (iAm == "true") true else false,
@@ -818,7 +819,7 @@ private fun ContentEditItemForUser(
 @Composable
 private fun ContentEditItemForDataChat(
     dataChatProvider: DataChatProvider,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel(),
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
     onDissmissRequest: () -> Unit
 ) {
     var dataChatID by remember { mutableStateOf(dataChatProvider.dataChatID.toString()) }
@@ -871,7 +872,7 @@ private fun ContentEditItemForDataChat(
 
 
         Button(onClick = {
-            testRoomAndHiltViewModel.updatedataChat(
+            multimediaViewModel.updatedataChat(
                 DataChatProvider(
                     dataChatID = dataChatID.toInt(),
                     dateTime = dateTime,
@@ -891,7 +892,7 @@ private fun ContentEditItemForDataChat(
 @Composable
 private fun ContentEditItemForMultimedia(
     multimediaProvider: MultimediaProvider,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel(),
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
     onDissmissRequest: () -> Unit
 ) {
 
@@ -953,7 +954,7 @@ private fun ContentEditItemForMultimedia(
 
 
         Button(onClick = {
-            testRoomAndHiltViewModel.updateMultimedia(
+            multimediaViewModel.updateMultimedia(
                 MultimediaProvider(
                     multimediaID = multimediaID.toInt(),
                     pathImage = pathImage,

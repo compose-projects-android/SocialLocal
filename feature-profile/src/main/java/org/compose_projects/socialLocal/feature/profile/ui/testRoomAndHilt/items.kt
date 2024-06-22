@@ -28,6 +28,7 @@ import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
 import org.compose_projects.socialLocal.core.data.data.ProfileProvider
 import org.compose_projects.socialLocal.core.data.data.UserProvider
 import androidx.compose.ui.text.TextStyle
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
 
 private val textStyle = TextStyle(
     color = Color.White.copy(alpha = 0.7F),
@@ -192,7 +193,7 @@ fun DataChatProviderItem(chatProvider: DataChatProvider) {
 @Composable
 fun MultimediaProviderItem(
     chatProvider: MultimediaProvider,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
 
     var showDialogDelete by remember { mutableStateOf(false) }

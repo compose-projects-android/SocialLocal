@@ -11,24 +11,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.ChatState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.DataChatState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.MultimediaState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.ProfileState
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.states.UserState
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+import org.compose_projects.socialLocal.core.data.common.states.ChatState
+import org.compose_projects.socialLocal.core.data.common.states.DataChatState
+import org.compose_projects.socialLocal.core.data.common.states.MultimediaState
+import org.compose_projects.socialLocal.core.data.common.states.ProfileState
+import org.compose_projects.socialLocal.core.data.common.states.UserState
 
 
 @Composable
 fun TestRoomAndHilt(
     configTest: ConfigTest,
-    testRoomAndHiltViewModel: TestRoomAndHiltViewModel = hiltViewModel()
+    multimediaViewModel: MultimediaViewModel = hiltViewModel()
 ) {
     //states
-    val chatState = testRoomAndHiltViewModel.chatState.collectAsState().value
-    val profileState = testRoomAndHiltViewModel.profileState.collectAsState().value
-    val userState = testRoomAndHiltViewModel.userState.collectAsState().value
-    val dataChatState = testRoomAndHiltViewModel.dataChatState.collectAsState().value
-    val multimediaState = testRoomAndHiltViewModel.multimediaState.collectAsState().value
+    val chatState = multimediaViewModel.chatState.collectAsState().value
+    val profileState = multimediaViewModel.profileState.collectAsState().value
+    val userState = multimediaViewModel.userState.collectAsState().value
+    val dataChatState = multimediaViewModel.dataChatState.collectAsState().value
+    val multimediaState = multimediaViewModel.multimediaState.collectAsState().value
 
     Column(
         modifier = Modifier

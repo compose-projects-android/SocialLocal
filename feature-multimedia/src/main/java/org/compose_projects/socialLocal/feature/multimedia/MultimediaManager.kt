@@ -18,15 +18,39 @@ package org.compose_projects.socialLocal.feature.multimedia
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.appname
 import org.compose_projects.socialLocal.feature.multimedia.directoryManager.configDirectories
 import org.compose_projects.socialLocal.feature.multimedia.directoryManager.listAppDirectories
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.SaveFile
 
-class MultimediaManager(private val context: Context) {
-    fun createDirectories() = configDirectories(context = context)
-    fun treeOfDirectories() = listAppDirectories(context = context, appName = appname)
-    fun saveFile(uri: Uri, typeChat: String) = SaveFile(context = context, uri = uri, typeChat = typeChat)
+
+class MultimediaManager(private val context: Context, private val multimediaViewModel: MultimediaViewModel) {
+    private val TAG = "ErrorMultimedia"
+    fun createDirectories() = try {
+        configDirectories(context = context)
+    }catch (e: Exception) {
+        Log.e(TAG, "Error creando directorios: $e")
+    }
+    fun treeOfDirectories() = try {
+        listAppDirectories(context = context, appName = appname)
+    }catch (e: Exception) {
+        Log.e(TAG, "Error listando directorios: $e")
+    }
+    fun saveFile(uri: Uri, typeChat: String) = try {
+        SaveFile(context = context, uri = uri, typeChat = typeChat)
+    }catch (e: Exception) {
+        Log.e(TAG, "Error guardando archivo: $e")
+    }
+
+    fun addMultimedia(multimediaProvider: MultimediaProvider) =
+        multimediaViewModel.insertMultimedia(
+            multimediaProvider
+        )
+
 }
+
 
 
