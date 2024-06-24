@@ -1,5 +1,6 @@
 package org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.compose.ui.text.TextStyle
 import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
 import org.compose_projects.socialLocal.core.data.data.ChatBubbleProvider
+import org.compose_projects.socialLocal.core.ui.components.chatBubbles.Bubbles
 
 private val textStyle = TextStyle(
     color = Color.White.copy(alpha = 0.7F),
@@ -36,29 +38,15 @@ private val textStyle = TextStyle(
 
 @Composable
 fun ChatProviderItem(chatProvider: ChatBubbleProvider) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(90.dp)
+    Bubbles(
+        hour = chatProvider.dateTime,
+        imageProfile = "/media/socialLocal/chat_global/profile_juan/image.png",
+        nameProfile = chatProvider.userName,
+        left = if (!chatProvider.iSend) true else false,
+        message = chatProvider.message
     ) {
 
-        HorizontalDivider(color = Color.Red)
-        Text(
-            text = chatProvider.chatID.toString(),
-            modifier = Modifier.align(Alignment.TopCenter)
-        )
-        Column(modifier = Modifier.align(Alignment.BottomCenter)) {
-            Row {
-                Text(text = chatProvider.isChatGlobal.toString(), style = textStyle)
-                Text(text = chatProvider.contentType, style = textStyle)
-                Text(text = chatProvider.dateTime, style = textStyle)
-                Text(text = chatProvider.description ?: "", style = textStyle)
-                Text(text = chatProvider.message ?: "", style = textStyle)
-            }
-        }
-
-        HorizontalDivider(color = Color.Red)
-
     }
+
 }
 

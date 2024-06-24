@@ -28,10 +28,10 @@ fun TestRoomAndHilt(
         isChatGlobal = true,
         pathImageProfile = "/media/path/image/profile.jpg",
         description = "Hola, me llamo daniel y estoy testeando room y hilt",
-        userName = "Less",
+        userName = "Maria",
         isFriend = false,
-        dateTime = "22:29",
-        iSend = true,
+        dateTime = "22:11",
+        iSend = false,
         contentType = "text",
         message = "Hola, este es un mensaje de ejemplo"
     )
@@ -61,7 +61,6 @@ fun TestRoomAndHilt(
             is ChatBubbleState.Success -> {
                 // Show the list of ChatProviders
                 val chatProviders = (chatState as ChatBubbleState.Success).data
-                val title = "Chat Entity"
                 ChatProviderList(chatProviders)
             }
         }

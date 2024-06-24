@@ -11,5 +11,7 @@ fun ChatProviderList(chatBubbleProvider: List<ChatBubbleProvider>) {
         items(chatBubbleProvider) { chatProvider ->
             ChatProviderItem(chatProvider)
         }
+
+
     }
 }
