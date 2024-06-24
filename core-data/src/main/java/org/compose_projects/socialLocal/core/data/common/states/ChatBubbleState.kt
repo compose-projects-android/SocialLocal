@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package org.compose_projects.socialLocal.core.data.data
+package org.compose_projects.socialLocal.core.data.common.states
 
-data class ProfileProvider(
-    val profileID: Int? = 0,
-    val pathImageProfile: String,
-    val description: String? = null,
-    val userID: Int? = 0
-)
+import org.compose_projects.socialLocal.core.data.data.ChatBubbleProvider
+
+sealed interface ChatBubbleState {
+    data object Loading : ChatBubbleState
+    data class Error(val throwable: Throwable) : ChatBubbleState
+    data class Success(val data: List<ChatBubbleProvider>) : ChatBubbleState
+}

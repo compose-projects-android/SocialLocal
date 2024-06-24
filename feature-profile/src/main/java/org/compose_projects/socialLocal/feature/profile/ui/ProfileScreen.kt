@@ -21,18 +21,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.ConfigTest
 import org.compose_projects.socialLocal.feature.profile.ui.testRoomAndHilt.TestRoomAndHilt
 
 
 @Composable
 fun ProfileScreen() {
     Box(Modifier.fillMaxSize(1F), contentAlignment = Alignment.TopCenter) {
-        TestRoomAndHilt(
-            configTest = ConfigTest(
-                multimediaEntity = true
-            )
-        )
+        TestRoomAndHilt() //test
     }
 }
 

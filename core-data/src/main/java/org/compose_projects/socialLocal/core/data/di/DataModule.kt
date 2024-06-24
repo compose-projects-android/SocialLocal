@@ -20,20 +20,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import org.compose_projects.socialLocal.core.data.data.UserProvider
-import org.compose_projects.socialLocal.core.data.repository.ChatRepository
-import org.compose_projects.socialLocal.core.data.repository.ChatRepositoryImp
-import org.compose_projects.socialLocal.core.data.repository.DataChatRepository
-import org.compose_projects.socialLocal.core.data.repository.DataChatRepositoryImp
-import org.compose_projects.socialLocal.core.data.repository.UserRepository
-import org.compose_projects.socialLocal.core.data.repository.UserRepositoryImp
-import org.compose_projects.socialLocal.core.data.repository.MultimediaRepository
-import org.compose_projects.socialLocal.core.data.repository.MultimediaRepositoryImp
-import org.compose_projects.socialLocal.core.data.repository.ProfileRepository
-import org.compose_projects.socialLocal.core.data.repository.ProfileRepositoryImp
-import javax.inject.Inject
+import org.compose_projects.socialLocal.core.data.repository.ChatBubbleRepository
+import org.compose_projects.socialLocal.core.data.repository.ChatBubbleRepositoryImp
 import javax.inject.Singleton
 
 @Module
@@ -42,34 +30,10 @@ interface DataModule {
 
     @Singleton
     @Binds
-    fun bindsUserRepository(
-        usersRepository: UserRepositoryImp
-    ): UserRepository
+    fun bindsChatBubbleRepository(
+        chatBubbleRepositoryImp: ChatBubbleRepositoryImp
+    ): ChatBubbleRepository
 
-    @Singleton
-    @Binds
-    fun bindsMultimediaRepository(
-        multimediaRepository: MultimediaRepositoryImp
-    ): MultimediaRepository
-
-
-    @Singleton
-    @Binds
-    fun bindsDataChatRepository(
-        dataChatRepository: DataChatRepositoryImp
-    ): DataChatRepository
-
-    @Singleton
-    @Binds
-    fun bindsProfileRepository(
-        profileRepository: ProfileRepositoryImp
-    ): ProfileRepository
-
-    @Singleton
-    @Binds
-    fun bindsChatRepository(
-        chatRepository: ChatRepositoryImp
-    ): ChatRepository
 }
 
 

@@ -20,35 +20,64 @@ import android.content.Context
 import android.net.Uri
 import android.util.Log
 import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
-import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.appname
 import org.compose_projects.socialLocal.feature.multimedia.directoryManager.configDirectories
 import org.compose_projects.socialLocal.feature.multimedia.directoryManager.listAppDirectories
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.SaveFile
+import org.compose_projects.socialLocal.feature.multimedia.saveInfoInRoomManager.SIRManager
 
 
-class MultimediaManager(private val context: Context, private val multimediaViewModel: MultimediaViewModel) {
+class MultimediaManager(
+    private val context: Context,
+    private val multimediaViewModel: MultimediaViewModel
+) {
     private val TAG = "ErrorMultimedia"
     fun createDirectories() = try {
         configDirectories(context = context)
-    }catch (e: Exception) {
+    } catch (e: Exception) {
         Log.e(TAG, "Error creando directorios: $e")
     }
+
     fun treeOfDirectories() = try {
         listAppDirectories(context = context, appName = appname)
-    }catch (e: Exception) {
+    } catch (e: Exception) {
         Log.e(TAG, "Error listando directorios: $e")
     }
+
     fun saveFile(uri: Uri, typeChat: String) = try {
         SaveFile(context = context, uri = uri, typeChat = typeChat)
-    }catch (e: Exception) {
+    } catch (e: Exception) {
         Log.e(TAG, "Error guardando archivo: $e")
     }
 
-    fun addMultimedia(multimediaProvider: MultimediaProvider) =
-        multimediaViewModel.insertMultimedia(
-            multimediaProvider
+   /*
+    fun newChat(
+        user: String,
+        pathImageProfile: String,
+        iSend: Boolean,
+        dateTime: String,
+        typeData: String,
+        pathFile: String? = null,
+        message: String? = null,
+        isChatGlobal: Boolean,
+        idChat: Int
+    ) = try {
+        SIRManager(multimediaViewModel).insertChatBubble(
+            user = user,
+            pathImageProfile = pathImageProfile,
+            iSend = iSend,
+            dateTime = dateTime,
+            typeData = typeData,
+            pathFile = pathFile,
+            message = message,
+            isChatGlobal = isChatGlobal,
+            idChat = idChat
         )
+        Log.d(TAG, "Chat guardado exitosamente")
+    } catch (e: Exception) {
+        Log.e(TAG, "Error guardando Chat: $e")
+    }
+    */
 
 }
 

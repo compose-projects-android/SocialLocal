@@ -29,6 +29,7 @@ import kotlinx.coroutines.flow.Flow
 data class User(
     @PrimaryKey(autoGenerate = true)
     val userID: Int = 0,
+    val userName: String,
     val iAm: Boolean,
     val isFriend: Boolean,
     val dataChatID: Int = 0
@@ -40,6 +41,9 @@ interface UserDao {
 
     @Query("SELECT * FROM User")
     fun getUser(): Flow<List<User>>
+
+    @Query("SELECT * FROM User WHERE userID = :id")
+    fun getUserById(id: Int): Flow<User>
 
     @Update
     fun updateUser(item: User)

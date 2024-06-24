@@ -10,157 +10,43 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import org.compose_projects.socialLocal.core.data.data.ChatProvider
-import org.compose_projects.socialLocal.core.data.data.DataChatProvider
-import org.compose_projects.socialLocal.core.data.data.MultimediaProvider
-import org.compose_projects.socialLocal.core.data.data.ProfileProvider
-import org.compose_projects.socialLocal.core.data.data.UserProvider
-import org.compose_projects.socialLocal.core.data.repository.ChatRepository
-import org.compose_projects.socialLocal.core.data.repository.DataChatRepository
-import org.compose_projects.socialLocal.core.data.repository.MultimediaRepository
-import org.compose_projects.socialLocal.core.data.repository.ProfileRepository
-import org.compose_projects.socialLocal.core.data.repository.UserRepository
-import org.compose_projects.socialLocal.core.data.common.states.ChatState
-import org.compose_projects.socialLocal.core.data.common.states.DataChatState
-import org.compose_projects.socialLocal.core.data.common.states.MultimediaState
-import org.compose_projects.socialLocal.core.data.common.states.ProfileState
-import org.compose_projects.socialLocal.core.data.common.states.UserState
+import org.compose_projects.socialLocal.core.data.common.states.ChatBubbleState
+import org.compose_projects.socialLocal.core.data.data.ChatBubbleProvider
+import org.compose_projects.socialLocal.core.data.repository.ChatBubbleRepository
 
 
 import javax.inject.Inject
 
 @HiltViewModel
 class MultimediaViewModel @Inject constructor(
-    private val chatRepository: ChatRepository,
-    private val profileRepository: ProfileRepository,
-    private val userRepository: UserRepository,
-    private val dataChatRepository: DataChatRepository,
-    private val multimediaRepository: MultimediaRepository
+    private val chatBubbleRepository: ChatBubbleRepository
 ) : ViewModel() {
 
-    val chatState: StateFlow<ChatState> = chatRepository
-        .chat.map<List<ChatProvider>, ChatState> { ChatState.Success(data = it) }
-        .catch { emit(ChatState.Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ChatState.Loading)
-
-
-    val profileState: StateFlow<ProfileState> = profileRepository
-        .profile.map<List<ProfileProvider>, ProfileState> { ProfileState.Success(data = it) }
-        .catch { emit(ProfileState.Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ProfileState.Loading)
-
-
-    val userState: StateFlow<UserState> = userRepository
-        .user.map<List<UserProvider>, UserState> { UserState.Success(data = it) }
-        .catch { emit(UserState.Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UserState.Loading)
-
-
-    val dataChatState: StateFlow<DataChatState> = dataChatRepository
-        .dataChat.map<List<DataChatProvider>, DataChatState> { DataChatState.Success(data = it) }
-        .catch { emit(DataChatState.Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DataChatState.Loading)
-
-    val multimediaState: StateFlow<MultimediaState> = multimediaRepository
-        .multimedia.map<List<MultimediaProvider>, MultimediaState> { MultimediaState.Success(data = it) }
-        .catch { emit(MultimediaState.Error(it)) }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), MultimediaState.Loading)
-
+    val chatBubbleState: StateFlow<ChatBubbleState> = chatBubbleRepository
+        .chatBubble.map<List<ChatBubbleProvider>, ChatBubbleState> { ChatBubbleState.Success(data = it) }
+        .catch { emit(ChatBubbleState.Error(it)) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), ChatBubbleState.Loading)
 
     //Inserts
-    fun insertChat(chatProvider: ChatProvider) =
+    fun insertChat(chatBubbleProvider: ChatBubbleProvider) =
         viewModelScope.launch(Dispatchers.IO) {
-            chatRepository.insert(
-                chatProvider = chatProvider
-            )
-        }
-    fun insertProfile(profileProvider: ProfileProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            profileRepository.insert(
-                profileProvider = profileProvider
-            )
-        }
-    fun insertUser(userProvider: UserProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.insert(
-                userProvider = userProvider
-            )
-        }
-    fun insertDataChat(dataChatProvider: DataChatProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            dataChatRepository.insert(
-                dataChatProvider = dataChatProvider
-            )
-        }
-    fun insertMultimedia(multimediaProvider: MultimediaProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            multimediaRepository.insert(
-                multimediaProvider = multimediaProvider
-            )
-        }
-    //updates
-
-    fun updateChat(chatProvider: ChatProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            chatRepository.update(
-                chatProvider = chatProvider
-            )
-        }
-    fun updateProfile(profileProvider: ProfileProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            profileRepository.update(
-                profileProvider = profileProvider
-            )
-        }
-    fun updateUser(userProvider: UserProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.update(
-                userProvider = userProvider
-            )
-        }
-    fun updatedataChat(dataChatProvider: DataChatProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            dataChatRepository.update(
-                dataChatProvider = dataChatProvider
-            )
-        }
-    fun updateMultimedia(multimediaProvider: MultimediaProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            multimediaRepository.update(
-                multimediaProvider = multimediaProvider
+            chatBubbleRepository.insert(
+                chatBubbleProvider
             )
         }
 
+    fun updateChat(chatBubbleProvider: ChatBubbleProvider) =
+        viewModelScope.launch(Dispatchers.IO) {
+            chatBubbleRepository.update(
+                chatBubbleProvider
+            )
+        }
 
-    //deletes
-    fun deleteChat(chatProvider: ChatProvider) =
+    fun deleteChat(chatBubbleProvider: ChatBubbleProvider) =
         viewModelScope.launch(Dispatchers.IO) {
-            chatRepository.delete(
-                chatProvider = chatProvider
+            chatBubbleRepository.delete(
+                chatBubbleProvider
             )
         }
-    fun deleteProfile(profileProvider: ProfileProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            profileRepository.delete(
-                profileProvider = profileProvider
-            )
-        }
-    fun deleteUser(userProvider: UserProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            userRepository.delete(
-                userProvider = userProvider
-            )
-        }
-    fun deleteDataChat(dataChatProvider: DataChatProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            dataChatRepository.delete(
-                dataChatProvider = dataChatProvider
-            )
-        }
-    fun deleteMultimedia(multimediaProvider: MultimediaProvider) =
-        viewModelScope.launch(Dispatchers.IO) {
-            multimediaRepository.delete(
-                multimediaProvider = multimediaProvider
-            )
-        }
+
 }

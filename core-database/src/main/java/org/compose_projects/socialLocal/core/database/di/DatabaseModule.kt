@@ -25,11 +25,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import org.compose_projects.socialLocal.core.database.AppDatabase
 import org.compose_projects.socialLocal.core.database.CONSTANTS.databaseName
-import org.compose_projects.socialLocal.core.database.daos.ChatDao
-import org.compose_projects.socialLocal.core.database.daos.DataChatDao
-import org.compose_projects.socialLocal.core.database.daos.MultimediaDao
-import org.compose_projects.socialLocal.core.database.daos.ProfileDao
-import org.compose_projects.socialLocal.core.database.daos.UserDao
+import org.compose_projects.socialLocal.core.database.daos.ChatBubbleDao
 import javax.inject.Singleton
 
 @Module
@@ -47,28 +43,8 @@ class DatabaseModule {
 
 
     @Provides
-    fun provideUserDao(appDatabase: AppDatabase): UserDao =
-        appDatabase.userDao()
-
-
-    @Provides
-    fun provideMultimediaDao(appDatabase: AppDatabase): MultimediaDao =
-        appDatabase.multimediaDao()
-
-
-    @Provides
-    fun provideDataChatDao(appDatabase: AppDatabase): DataChatDao =
-        appDatabase.dataChatDao()
-
-
-    @Provides
-    fun provideChatDao(appDatabase: AppDatabase): ChatDao =
-        appDatabase.chatDao()
-
-    @Provides
-    fun provideProfileDao(appDatabase: AppDatabase): ProfileDao =
-        appDatabase.profileDao()
-
+    fun provideChatBubble(appDatabase: AppDatabase): ChatBubbleDao =
+        appDatabase.chatBubbleDao()
 
 
 }

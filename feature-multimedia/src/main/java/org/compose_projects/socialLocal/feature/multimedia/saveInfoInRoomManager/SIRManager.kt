@@ -16,5 +16,66 @@
 
 package org.compose_projects.socialLocal.feature.multimedia.saveInfoInRoomManager
 
-class SIRManager {
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+
+class SIRManager(private val multimediaViewModel: MultimediaViewModel) {
+
+
+   /*
+    fun insertChatBubble(
+        user: String,
+        pathImageProfile: String,
+        iSend: Boolean,
+        dateTime: String,
+        typeData: String,
+        pathFile: String? = null,
+        message: String? = null,
+        isChatGlobal: Boolean,
+        idChat: Int
+    ) {
+
+        multimediaViewModel.insertChat(
+            ChatProvider(
+                isChatGlobal = isChatGlobal,
+                profileID = idChat
+            )
+        )
+        multimediaViewModel.insertProfile(
+            ProfileProvider(
+                pathImageProfile = pathImageProfile,
+                userID = idChat
+            )
+        )
+        multimediaViewModel.insertUser(
+            UserProvider(
+                userName = user,
+                iAm = if (iSend) true else false,
+                isFriend = if (!iSend) true else false,
+                dataChatID = idChat
+            )
+        )
+        multimediaViewModel.insertDataChat(
+            DataChatProvider(
+                dateTime = dateTime,
+                iSend = iSend,
+                contentType = typeData,
+                multimediaID = idChat
+            )
+        )
+        multimediaViewModel.insertMultimedia(
+            MultimediaProvider(
+                pathFile = pathFile,
+                message = message
+            )
+        )
+    }
+
+    fun readChatBubble(
+      idChat: Int
+    ){
+
+    }
+    */
+
+
 }
