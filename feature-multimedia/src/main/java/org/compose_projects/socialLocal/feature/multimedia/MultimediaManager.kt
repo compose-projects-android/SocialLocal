@@ -18,13 +18,16 @@ package org.compose_projects.socialLocal.feature.multimedia
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.util.Log
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+import org.compose_projects.socialLocal.core.data.common.TimeManager
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.appname
 import org.compose_projects.socialLocal.feature.multimedia.directoryManager.configDirectories
 import org.compose_projects.socialLocal.feature.multimedia.directoryManager.listAppDirectories
 import org.compose_projects.socialLocal.feature.multimedia.fileSorterManager.SaveFile
-import org.compose_projects.socialLocal.feature.multimedia.saveInfoInRoomManager.SIRManager
 
 
 class MultimediaManager(
@@ -44,8 +47,9 @@ class MultimediaManager(
         Log.e(TAG, "Error listando directorios: $e")
     }
 
+
     fun saveFile(uri: Uri, typeChat: String) = try {
-        SaveFile(context = context, uri = uri, typeChat = typeChat)
+        SaveFile(context = context, uri = uri, typeChat = typeChat, multimediaViewModel = multimediaViewModel)
     } catch (e: Exception) {
         Log.e(TAG, "Error guardando archivo: $e")
     }

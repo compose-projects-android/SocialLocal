@@ -16,6 +16,9 @@
 
 package org.compose_projects.socialLocal.feature.home.ui
 
+import android.os.Build
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -27,8 +30,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,16 +42,22 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+import org.compose_projects.socialLocal.core.data.common.NameManager
+import org.compose_projects.socialLocal.core.data.common.states.ChatBubbleState
 import org.compose_projects.socialLocal.core.ui.components.bottomChat.BottomChat
 import org.compose_projects.socialLocal.core.ui.components.bottomChat.BottomChatViewModel
 import org.compose_projects.socialLocal.core.ui.components.bottomChat.actions.EmojiAction
 import org.compose_projects.socialLocal.core.ui.components.bottomChat.actions.FileAction
+import org.compose_projects.socialLocal.core.ui.components.bottomChat.actions.SendAction
 import org.compose_projects.socialLocal.core.ui.components.chatBubbles.Bubbles
+import org.compose_projects.socialLocal.core.ui.components.chatBubbles.ChatBubbles
 import org.compose_projects.socialLocal.core.ui.components.chatBubbles.messages
 import org.compose_projects.socialLocal.core.ui.components.chatBubbles.messages_example
 import org.compose_projects.socialLocal.core.ui.components.prev_profile.ContentProfile
@@ -55,6 +67,7 @@ import org.compose_projects.socialLocal.core.ui.components.prev_profile.PreviewP
 private const val chatglobal = "Chat Global"
 private const val chatinbox = "Chats Privados"
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun HomeScreen(
     bottomChatViewModel: BottomChatViewModel = viewModel(),
@@ -98,20 +111,18 @@ fun HomeScreen(
         messages.message8,
         messages.message9,
     )
+
+
     val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
+        /*
         coroutineScope.launch {
             listState.scrollToItem(messages.lastIndex)
         }
-        /*
-             homeViewModel.insertUser(
-            iAm = true,
-            isFriend = false,
-            dataChatID = 0
-        )
          */
+
     }
 
     var showProfile by remember { mutableStateOf(false) }
@@ -134,6 +145,7 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
+        /*
         LazyColumn(
             state = listState,
             modifier = Modifier
@@ -163,6 +175,14 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
+         */
+
+        ChatBubbles { name, image, description ->
+            showProfile = true
+            nameProfile = name
+            imageProfile = image
+            descriptionProfile = description
+        }
 
         //add: updated the actions for each item
         BottomChat(modifier = Modifier
@@ -178,6 +198,7 @@ fun HomeScreen(
             sendAction = { sendState = true }
         )
 
+        val message = bottomChatViewModel.text.collectAsState().value
 
         //Actions for bottomChat
         EmojiAction(
@@ -196,7 +217,24 @@ fun HomeScreen(
             keyboardController?.show()
         }
 
-        FileAction(state = fileState, typeChat = chatglobal, onDismissRequest = {fileState = false})
+        FileAction(
+            state = fileState,
+            userName = nameProfile,
+            typeChat = chatglobal,
+            onDismissRequest = { fileState = false }
+        )
+
+        SendAction(
+            state = sendState,
+            userName = "Less",
+            contentType = "message",
+            message = message,
+            onDissmissRequest = {
+                sendState = false
+                keyboardController?.hide()
+                bottomChatViewModel.changeText("") //clean the input
+            }
+        )
 
     }
 

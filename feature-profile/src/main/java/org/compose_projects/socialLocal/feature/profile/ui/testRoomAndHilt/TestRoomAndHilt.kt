@@ -36,11 +36,13 @@ fun TestRoomAndHilt(
         message = "Hola, este es un mensaje de ejemplo"
     )
 
+   /*
     LaunchedEffect(Unit) {
         multimediaViewModel.insertChat(
             newChatProvider
         )
     }
+    */
 
     Column(
         modifier = Modifier

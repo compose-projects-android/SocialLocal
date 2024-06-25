@@ -35,13 +35,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,11 +66,76 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import kotlinx.coroutines.launch
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
+import org.compose_projects.socialLocal.core.data.common.states.ChatBubbleState
 import org.compose_projects.socialLocal.core.ui.R
 import org.compose_projects.socialLocal.core.ui.colorPreferences.SLColor
 import org.compose_projects.socialLocal.core.ui.components.videoPlayer.VideoScreen
 import org.compose_projects.socialLocal.core.ui.components.videoPlayer.viewModels.ChatGlobal
+
+@Composable
+fun ChatBubbles(
+    multimediaViewModel: MultimediaViewModel = hiltViewModel(),
+    onClickProfile: (nameProfile: String, imageProfile: String, descriptionProfile:  String) -> Unit
+) {
+    val chatState = multimediaViewModel.chatBubbleState.collectAsState().value
+
+    val listState = rememberLazyListState()
+    val coroutineScope = rememberCoroutineScope()
+
+    when (chatState) {
+        is ChatBubbleState.Loading -> {
+            // Show a loading indicator
+            CircularProgressIndicator()
+        }
+
+        is ChatBubbleState.Error -> {
+            // Show an error message
+            val error = (chatState as ChatBubbleState.Error).throwable
+            Text(text = "Error: ${error.message}")
+        }
+
+        is ChatBubbleState.Success -> {
+            // Show the list of ChatProviders
+            val chatProviders = (chatState as ChatBubbleState.Success).data
+
+            LaunchedEffect(Unit, chatProviders) {
+                coroutineScope.launch {
+                    if (chatProviders.isNotEmpty()) listState.scrollToItem(chatProviders.lastIndex)
+                }
+            }
+
+            LazyColumn(
+                state = listState,
+                modifier = Modifier
+                    .padding(15.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.93F),
+                verticalArrangement = Arrangement.Top
+            ) {
+                items(chatProviders) { chatProvider ->
+
+                    Bubbles(
+                        hour = chatProvider.dateTime,
+                        imageProfile = "/media/socialLocal/chat_global/profile_juan/image.png",
+                        nameProfile = chatProvider.userName,
+                        left = if (chatProvider.iSend) true else false,
+                        message = chatProvider.message,
+                        image = chatProvider.pathFile
+                    ) {
+                        onClickProfile(chatProvider.userName, "/media/socialLocal/chat_global/profile_juan/image.png", if (chatProvider.description != null) chatProvider.description.toString() else "Sin Descripción")
+                    }
+                    Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
+        }
+    }
+
+}
+
 
 @Composable
 fun Bubbles(
@@ -172,7 +242,7 @@ private fun CurrentTitle(
         Spacer(modifier = Modifier.width(15.dp))
 
         Text(
-            "martes - $hour",
+            hour,
             color = currentColor.ColorTitles,
             fontSize = 9.5.sp,
             fontWeight = FontWeight.Light

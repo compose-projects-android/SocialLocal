@@ -16,6 +16,8 @@
 
 package org.compose_projects.socialLocal.ui
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -69,6 +71,7 @@ import org.compose_projects.socialLocal.ui.Routes.profile
 import org.compose_projects.socialLocal.ui.Screens.Companion.screens
 
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
@@ -89,7 +92,7 @@ fun MainNavigation() {
                     .padding(it)
             ) {
 
-                NavHost(navController = navController, startDestination = profile) {
+                NavHost(navController = navController, startDestination = globalChat) {
 
                     composable(auth) {
                         titleTopAppBar = titleAuth

@@ -19,6 +19,7 @@ package org.compose_projects.socialLocal.feature.multimedia.fileSorterManager
 import android.content.Context
 import android.net.Uri
 import android.widget.Toast
+import org.compose_projects.socialLocal.core.data.common.MultimediaViewModel
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.audio
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.document
 import org.compose_projects.socialLocal.feature.multimedia.CONSTANTS.image
@@ -61,7 +62,7 @@ private class FilePicker(private val context: Context) {
 
 
 
-internal fun  SaveFile(context: Context, uri: Uri, typeChat: String) {
+internal fun  SaveFile(context: Context, uri: Uri, typeChat: String, multimediaViewModel: MultimediaViewModel) {
     val namePicker = namePicker(uri.toString())
     val filePicker = FilePicker(context)
 
@@ -72,6 +73,7 @@ internal fun  SaveFile(context: Context, uri: Uri, typeChat: String) {
                 typeChat = typeChat,
                 nameFile = namePicker.nameFile
             )
+            Toast.makeText(context, "Imagen ${namePicker.nameFile} guardada exitosamente.", Toast.LENGTH_SHORT).show()
         }
 
         video -> {

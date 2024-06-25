@@ -26,6 +26,7 @@ import dagger.hilt.components.SingletonComponent
 import org.compose_projects.socialLocal.core.database.AppDatabase
 import org.compose_projects.socialLocal.core.database.CONSTANTS.databaseName
 import org.compose_projects.socialLocal.core.database.daos.ChatBubbleDao
+import org.compose_projects.socialLocal.core.database.daos.SLPreferencesDao
 import javax.inject.Singleton
 
 @Module
@@ -45,6 +46,10 @@ class DatabaseModule {
     @Provides
     fun provideChatBubble(appDatabase: AppDatabase): ChatBubbleDao =
         appDatabase.chatBubbleDao()
+
+    @Provides
+    fun provideSLPreferences(appDatabase: AppDatabase): SLPreferencesDao =
+        appDatabase.slPreferencesDao()
 
 
 }

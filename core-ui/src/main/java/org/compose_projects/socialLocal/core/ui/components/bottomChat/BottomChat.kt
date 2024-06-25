@@ -76,7 +76,7 @@ fun BottomChat(
             value = value,
             onValueChange = { bottomChatViewModel.changeText(it) },
             modifier = modifier.fillMaxWidth(0.87F).focusRequester(focusRequester),
-            shape = RoundedCornerShape(15.dp),
+            shape = RoundedCornerShape(50.dp),
             placeholder = { Label() },
             leadingIcon = {
                 LeadingIcon(
@@ -135,7 +135,7 @@ private fun LeadingIcon(emojiAction: () -> Unit) {
 @Composable
 private fun TrailingIcon(fileAction: () -> Unit, cameraAction: () -> Unit) {
 
-    Row(modifier = Modifier.padding(end = 5.dp)) {
+    Row(modifier = Modifier.padding(end = 7.dp)) {
         Icon(
             painter = painterResource(id = R.drawable.file_ic),
             contentDescription = null,

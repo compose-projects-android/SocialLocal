@@ -20,38 +20,34 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Entity
 import androidx.room.Insert
-import androidx.room.PrimaryKey
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Entity
-data class User(
-    @PrimaryKey(autoGenerate = true)
-    val userID: Int = 0,
+data class SLPreferences(
+    val theme: String,
     val userName: String,
-    val iAm: Boolean,
-    val isFriend: Boolean,
-    val dataChatID: Int = 0
+    val description: String? = null,
+    val pathImageProfile: String? = null,
+    //val contactMe: String? = null
 )
 
 
 @Dao
-interface UserDao {
+interface SLPreferencesDao {
 
-    @Query("SELECT * FROM User")
-    fun getUser(): Flow<List<User>>
+    @Query("SELECT * FROM SLPreferences")
+    fun getSLPreferences(): Flow<List<SLPreferences>>
 
-    @Query("SELECT * FROM User WHERE userID = :id")
-    fun getUserById(id: Int): Flow<User>
 
     @Update
-    fun updateUser(item: User)
+    fun updateSLPreferences(item: SLPreferences)
 
     @Insert
-    suspend fun insertUser(item: User)
+    suspend fun insertSLPreferences(item: SLPreferences)
 
     @Delete
-    suspend fun deleteUser(item: User)
+    suspend fun deleteSLPreferences(item: SLPreferences)
 
 }

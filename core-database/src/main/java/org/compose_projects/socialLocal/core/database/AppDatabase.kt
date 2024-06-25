@@ -20,13 +20,16 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import org.compose_projects.socialLocal.core.database.daos.ChatBubble
 import org.compose_projects.socialLocal.core.database.daos.ChatBubbleDao
+import org.compose_projects.socialLocal.core.database.daos.SLPreferences
+import org.compose_projects.socialLocal.core.database.daos.SLPreferencesDao
 
 
 @Database(
-    entities = [ChatBubble::class],
+    entities = [ChatBubble::class, SLPreferences::class],
     version = 1
 )
 
 abstract class AppDatabase : RoomDatabase() {
     abstract fun chatBubbleDao(): ChatBubbleDao
+    abstract fun slPreferencesDao(): SLPreferencesDao
 }
